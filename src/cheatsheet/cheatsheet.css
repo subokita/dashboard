@@ -1,0 +1,32 @@
+.cheatsheet-table-container {
+    padding : 20px !important;
+    overflow: scroll;
+}
+
+.cheatsheet-box {
+    overflow   : hidden;
+}
+
+.cheatsheet-table-header {
+    font-size       : 18px !important;
+    font-family     : "Noto Sans Mono" !important;
+    background-color: black !important;
+    padding         : 8px !important;
+    border-right    : solid 1px #666 ;
+}
+
+.cheatsheet-table-cell {
+    padding      : 10px !important;
+    font-size    : 18px !important;
+    font-family  : "Noto Sans Mono" !important;
+    border-right : solid 1px #666 ;
+}
+
+
+.cheatsheet-table-row-odd {
+    background-color: #333;
+}
+
+.cheatsheet-table-row-even {
+    background-color: #555;
+}

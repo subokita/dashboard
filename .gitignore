@@ -21,3 +21,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+config.json
+__pycache__
+*.lock
+*.lock
+package-lock.json

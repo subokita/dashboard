@@ -1,0 +1,21 @@
+
+.device-status-selected {
+    background : #99CCFF !important;
+    text-align : center;
+    font-size  : 20px;
+    font-weight: bold;
+    color      : #000 !important;
+}
+
+.device-status-date {
+    text-align: right;
+}
+
+.device-status-local {
+    color:  #0f0 !important;
+}
+
+.device-status-clock {
+    text-align: right;
+}
+

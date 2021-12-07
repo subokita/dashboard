@@ -1,0 +1,95 @@
+{
+    "dashboard": {
+        "websocket": {
+            "url"          : "ws://192.168.1.102:44445/dashboard/tab",
+            "poll_interval": 500
+        },
+
+        "rest": {
+            "put": "/dashboard/tab"
+        }
+    },
+
+
+    "plex": {
+        "server": "http://192.168.1.101:32400"
+    },
+
+    "now_playing": {
+        "websocket": {
+            "url"          : "ws://192.168.1.102:44445/now_playing/info",
+            "poll_interval": 500
+        },
+        "rest": {
+            "play" : "/now_playing/play",
+            "pause": "/now_playing/pause",
+            "next" : "/now_playing/next",
+            "prev" : "/now_playing/prev"
+        }
+    },
+
+
+    "language": {
+        "websocket": {
+            "url"          : "ws://192.168.1.102:44445/device_status/language",
+            "poll_interval": 500
+        },
+        "list": [
+            "Русский", "ภาษาไทย", "Tiếng Việt",
+            "עִבְרִית‎", "اَلْعَرَبِيَّةُ", "हिन्दी",
+            "汉语", "日本語", "한국어"
+        ]
+    },
+
+    "space": {
+        "websocket": {
+            "url"          : "ws://192.168.1.102:44445/device_status/space",
+            "poll_interval": 500
+        },
+        "list": [
+            "lang", "music", "plex",
+            "dev", "web", "ferdi",
+            "remote", "stream", "others"
+        ]
+    },
+
+
+    "time": {
+        "local": {
+            "city": "Jakarta",
+            "utc" : 7
+        },
+
+        "world": [
+            { "city": "London",         "utc" :  0 },
+            { "city": "San Francisco",  "utc" : -8 },
+            { "city": "Moscow",         "utc" :  3 }
+        ]
+    },
+
+    "usb": {
+        "websocket": {
+            "url"          : "ws://192.168.1.102:44445/device_status/usb",
+            "poll_interval": 1000
+        },
+        "list": [
+            { "id": "0x0140", "name": "Das Keyboard" },
+            { "id": "0x006a", "name": "Game Capture HD60 S+" },
+            { "id": "0x8202", "name": "Scarlett 2i2 USB" },
+            { "id": "0x085c", "name": "C922 Pro Stream Webcam" },
+            { "id": "0xc52b", "name": "Logitech MX Master 2" },
+            { "id": "0x0301", "name": "MeloAudio MIDI Commander" },
+            { "id": "0xab24", "name": "Seagate 2TB HDD" },
+            { "id": "0x0751", "name": "Vention USB Card Reader" },
+            { "id": "0x0305", "name": "Samson Go Mic" }
+        ]
+    },
+
+    "schedule": {
+        "habitify": {
+            "url"          : "https://api.habitify.me/journal",
+            "api_key"      : "yeah api key shouldn't be in frontend, but it's for my only use, and I'm too lazy to spawn a thread to update it regularly",
+            "poll_interval": 5000
+        }
+    }
+}

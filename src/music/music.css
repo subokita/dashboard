@@ -1,0 +1,85 @@
+.music-album-art {
+    background:  transparent !important;
+    text-align: center;
+    color     :  #666 !important;
+}
+
+.music-album-art-image{
+    border       : solid 3px #aaa;
+    border-radius: 15%;
+    box-shadow   : 0px 0px 50px 0px #000;
+    width        : auto;
+    height       : 300px;
+    perspective  : 800px;
+}
+
+
+.music-album-art-dimming{
+    animation: music-dimming 1500ms linear 1;
+}
+
+
+.music-album-art-glowing{
+    animation: music-glowing 1500ms ease infinite;
+}
+
+
+@keyframes music-dimming {
+    to {
+        box-shadow: 0 0 50px 0px #000;
+    }
+}
+
+
+@keyframes music-glowing {
+    0% {
+        box-shadow: 0 0 50px 0px #000;
+    }
+    50% {
+        box-shadow: 0 0 50px 20px #000;
+    }
+    100% {
+        box-shadow: 0 0 50px 0px #000;
+    }
+}
+
+.music-button {
+    color: white !important;
+}
+
+.music-artist-bar {
+    align-items: center !important;
+    margin-left: -25px !important;
+}
+
+.music-artist {
+    font-size     : 35px;
+    font-weight   : 600;
+    background    : rgba( 255, 255, 255, 0.7 ) !important;
+    border-radius : 25px !important;
+    color         : #666 !important;
+    letter-spacing: 3px;
+    font-family   : 'Noto Sans';
+    padding       : 5px;
+    margin-bottom : 10px;
+    /*text-shadow   : -1px 1px 2px #000, 1px 1px 2px #000, 1px -1px 0 #000, -1px -1px 0 #000;*/
+}
+
+.music-title {
+    color         : white !important;
+    font-size     : 40px;
+    font-weight   : 700;
+    letter-spacing: 3px;
+    font-family   : 'Noto Sans';
+}
+
+.music-album {
+    font-size     : 30px;
+    font-weight   : 600;
+    font-style    : italic;
+    margin-top    : 10px;
+    color         : #999 !important;
+    letter-spacing: 2px;
+    font-family   : 'Noto Sans';
+    /*text-shadow   : -1px 1px 2px #000, 1px 1px 2px #000, 1px -1px 0 #000, -1px -1px 0 #000;*/
+}

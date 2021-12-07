@@ -1,0 +1,23 @@
+{
+    "redis":
+    {
+        "host": "0.0.0.0",
+        "port": 6379,
+        "db"  : 0
+    },
+
+    "yeelight_plex": {
+        "cwd": "/Users/yeelight-plex/"
+    },
+
+    "plex": {
+        "server"      : "http://192.168.1.101:32400",
+        "client"      : "plex-client-name",
+        "access_token": "token-here"
+    },
+
+    "habitify": {
+        "url"    : "https://api.habitify.me/journal",
+        "api_key": "api-key-here"
+    }
+}

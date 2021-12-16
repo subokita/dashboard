@@ -11,15 +11,15 @@ class PlexManager( object ):
         super( PlexManager, self ).__init__()
 
         self._plex        = PlexServer( server, access_token )
-        # self._client_name = client
-        self._client = next( filter( lambda avail_client: client in avail_client.title, self._plex.clients() ) )
+        self._client_name = client
+        # self._client = next( filter( lambda avail_client: client in avail_client.title, self._plex.clients() ) )
         return
 
 
     @property
     def client(self):
-        return self._client
-        # return next( filter( lambda avail_client: self._client_name in avail_client.title, self._plex.clients() ) )
+        # return self._client
+        return next( filter( lambda avail_client: self._client_name in avail_client.title, self._plex.clients() ) )
 
 
     async def pause_music( self ):

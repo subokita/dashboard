@@ -1,12 +1,12 @@
 import "../index.css"
 import "./schedule.css"
-import moment                         from 'moment'
-import axios                          from 'axios'
-import config                         from "../config.json"
-import React                          from 'react';
-import { Paper, Grid, Box, Checkbox } from '@mui/material';
-import CheckBoxOutlineBlankRoundedIcon from '@mui/icons-material/CheckBoxOutlineBlankRounded';
-import CheckBoxRoundedIcon from '@mui/icons-material/CheckBoxRounded';
+import moment                           from 'moment'
+import axios                            from 'axios'
+import config                           from "../config.json"
+import React                            from 'react';
+import { Paper, Grid, Box }             from '@mui/material';
+import CheckBoxOutlineBlankRoundedIcon  from '@mui/icons-material/CheckBoxOutlineBlankRounded';
+import CheckBoxRoundedIcon              from '@mui/icons-material/CheckBoxRounded';
 import IndeterminateCheckBoxRoundedIcon from '@mui/icons-material/IndeterminateCheckBoxRounded';
 
 

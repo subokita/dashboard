@@ -1,8 +1,8 @@
 import "../index.css"
 import "./device-status.css"
-import React                from 'react';
-import { Box, Grid, Paper } from '@mui/material';
-import config               from "../config.json"
+import React           from 'react';
+import { Box, Grid }   from '@mui/material';
+import config          from "../config.json"
 import WebSocketHelper from '../common/websocket_helper.js';
 
 class Space extends React.Component {
@@ -25,22 +25,16 @@ class Space extends React.Component {
     }
 
 
-    renderItem( space ) {
-        if( space.trim().toLowerCase() === this.state.selected.trim().toLowerCase() )
-            return <Paper className="paper device-status-selected" elevation={0}> {space} </Paper>;
-        return  <Paper className="paper" elevation={0}> {space} </Paper>;
-    }
-
-
     render() {
+        const { selected } = this.state;
         return (
             <Box sx={{ width: Number( this.props.width ) }}>
                 <Grid className="round-container" container spacing={0}>
                     {
                         config.space.list.map( (space, index) => (
-                            <Grid item xs={4} key={index}>
-                                {this.renderItem( space )}
-                            </Grid>
+                            space.trim().toLowerCase() === selected
+                            ? <Grid className="device-status-selected" item xs={4} key={index}> {space} </Grid>
+                            : <Grid className="paper" item xs={4} key={index}> {space} </Grid>
                         ))
                     }
                 </Grid>

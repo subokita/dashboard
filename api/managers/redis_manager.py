@@ -77,10 +77,33 @@ class RedisManager( object ):
             'album' : payload.Metadata.parentTitle,
             'year'  : payload.Metadata.parentYear,
             'title' : payload.Metadata.title,
-            'thumb' : payload.Metadata.parentThumb if 'thumb' in payload.Metadata else payload.Metadata.thumb,
+            'thumb' : payload.Metadata.thumb if 'track' in payload.Metadata.type else payload.Metadata.parentThumb,
         }))
 
         return
+
+    @property
+    def game_info(self):
+        return ujson.loads( self._client.get( 'game_info').decode( 'utf-8' ) )
+
+
+    @game_info.setter
+    def game_info( self, payload ):
+        self._client.set( 'game_info', ujson.dumps({
+            'id'          : payload.id,
+            'name'        : payload.name,
+            'deck'        : payload.deck,
+            'release_date': payload.release_date,
+            'image'       : payload.image,
+            'developers'  : payload.developers,
+            'publishers'  : payload.publishers,
+            'platforms'   : payload.platforms,
+            'genres'      : payload.genres,
+        }))
+
+        return
+
+
 
 
     @property

@@ -1,9 +1,9 @@
 import "../index.css"
 import "./time.css"
-import React                from 'react';
-import moment               from 'moment'
-import { Paper, Grid, Box } from '@mui/material';
-import config               from "../config.json"
+import React         from 'react';
+import moment        from 'moment'
+import { Grid, Box } from '@mui/material';
+import config        from "../config.json"
 
 
 class TimePanel extends React.Component {
@@ -33,18 +33,12 @@ class TimePanel extends React.Component {
         return (
             <Box className="box" sx={{ width: Number( this.props.width ) }}>
                 <Grid container spacing={3} sx={{ padding: 8 }}>
-                    <Grid item xs={5}>
-                        <Paper className="paper time-date" elevation={0}>
-                            {local_utc_offset.format( 'dddd' )}
-                        </Paper>
-                        <Paper className="paper time-date" elevation={0}>
-                            {local_utc_offset.format( 'MMMM DD' )}
-                        </Paper>
+                    <Grid item xs={5} className="paper time-date">
+                        {local_utc_offset.format( 'dddd' )}<br/>
+                        {local_utc_offset.format( 'MMMM DD' )}
                     </Grid>
-                    <Grid item xs={6}>
-                        <Paper className="paper time-time" elevation={0}>
-                            {local_utc_offset.format( 'HH:mm:ss' )}
-                        </Paper>
+                    <Grid item xs={6} className="paper time-time">
+                        {local_utc_offset.format( 'HH:mm:ss' )}
                     </Grid>
                 </Grid>
             </Box>

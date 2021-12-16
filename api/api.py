@@ -10,6 +10,7 @@ from modules.space           import space
 from modules.usb_devices     import usb_devices
 from modules.tab             import tab
 from modules.now_playing     import now_playing
+from modules.game_info       import game_info
 
 
 app = Sanic( "Dashboard" )
@@ -17,6 +18,7 @@ blueprint_groups = {
     'device_status': Blueprint.group( language, space, usb_devices, url_prefix = '/device_status' ),
     'dashboard'    : Blueprint.group( tab, url_prefix = '/dashboard' ),
     'now_playing'  : Blueprint.group( now_playing, url_prefix = '/now_playing' ),
+    'game_info'    : Blueprint.group( game_info, url_prefix = '/game_info' ),
 }
 
 for group in blueprint_groups.values():

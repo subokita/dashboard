@@ -2,20 +2,24 @@ import './index.css';
 import config                        from "./config.json"
 import axios                         from 'axios'
 import React                         from 'react';
+import SwipeableViews                from 'react-swipeable-views';
+import {Fab, Tabs, Tab, Box, Avatar} from '@mui/material';
+
 import DeviceStatusPanel             from './device-status/main.js'
 import TimePanel                     from './time/main.js'
 import MusicPanel                    from './music/main.js'
 import SchedulePanel                 from './schedule/main.js'
-import SwipeableViews                from 'react-swipeable-views';
-import {Fab, Tabs, Tab, Box, Avatar} from '@mui/material';
+import TwitchPanel                   from './twitch/main.js'
+
 import DevicesIcon                   from '@mui/icons-material/Devices';
 import MusicNoteIcon                 from '@mui/icons-material/MusicNote';
 import EventAvailableIcon            from '@mui/icons-material/EventAvailable';
 import AccessTimeIcon                from '@mui/icons-material/AccessTime';
 import RefreshIcon                   from '@mui/icons-material/Refresh';
-import WebSocketHelper               from './common/websocket_helper.js';
+
 import CzechPanel                    from './cheatsheet/czech.js'
 import HebrewPanel                   from './cheatsheet/hebrew.js'
+import WebSocketHelper               from './common/websocket_helper.js';
 
 
 class Dashboard extends React.Component {
@@ -44,6 +48,10 @@ class Dashboard extends React.Component {
                 icon : <EventAvailableIcon/>,
                 panel: <SchedulePanel/>
             },
+            // {
+            //     icon: <Avatar className="tabs-avatar" src="icons8-twitch.png"/>,
+            //     panel: <TwitchPanel/>
+            // },
             {
                 icon: <Avatar className="tabs-avatar" src="icons8-czech_republic.png"/>,
                 panel: <CzechPanel/>

@@ -17,15 +17,9 @@ body {
 }
 
 @keyframes gradient {
-    0% {
-        background-position: 100% 50%;
-    }
-    50% {
-        background-position: 0% 50%;
-    }
-    100% {
-        background-position: 100% 50%;
-    }
+    0%   { background-position: 100% 50%; }
+    50%  { background-position:   0% 50%; }
+    100% { background-position: 100% 50%; }
 }
 
 
@@ -44,12 +38,12 @@ body {
 }
 
 .paper {
-    background : transparent !important;
-    text-align : center;
-    font-size  : 20px;
-    color      : #fff !important;
-    font-family: 'Noto Sans Mono';
-    padding    : 5px;
+    background   : transparent !important;
+    text-align   : center;
+    font-size    : 20px;
+    color        : #fff !important;
+    font-family  : 'Noto Sans Mono';
+    padding      : 5px;
 }
 
 .box {
@@ -63,6 +57,7 @@ body {
     border       : solid 1px #666;
     border-radius: 10px;
     padding      : 5px;
+    overflow     : hidden;
 }
 
 .tab-item {

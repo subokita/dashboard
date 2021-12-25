@@ -1,10 +1,10 @@
-.cheatsheet-table-container {
-    padding : 20px !important;
-    overflow: scroll;
+.cheatsheet-table-container::-webkit-scrollbar {
+    display: none;
 }
 
 .cheatsheet-box {
-    overflow   : hidden;
+    overflow: hidden;
+    margin  :  15px;
 }
 
 .cheatsheet-table-header {
@@ -13,6 +13,7 @@
     background-color: black !important;
     padding         : 8px !important;
     border-right    : solid 1px #666 ;
+    text-align      : center !important;
 }
 
 .cheatsheet-table-cell {

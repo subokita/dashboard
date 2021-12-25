@@ -3,7 +3,10 @@ import "./schedule.css"
 import moment                           from 'moment'
 import axios                            from 'axios'
 import config                           from "../config.json"
+import Timer                            from 'tiny-timer'
 import React                            from 'react';
+import { connect }                      from 'react-redux'
+import { set_habits }                   from '../store/slices/schedule_slice.js'
 import { Paper, Grid, Box }             from '@mui/material';
 import CheckBoxOutlineBlankRoundedIcon  from '@mui/icons-material/CheckBoxOutlineBlankRounded';
 import CheckBoxRoundedIcon              from '@mui/icons-material/CheckBoxRounded';
@@ -13,11 +16,7 @@ import IndeterminateCheckBoxRoundedIcon from '@mui/icons-material/IndeterminateC
 class SchedulePanel extends React.Component {
     constructor( props ){
         super( props );
-        this.state = {
-            habits: {},
-        }
-
-        this.timer = null;
+        this.timer = new Timer();
     }
 
 
@@ -30,46 +29,29 @@ class SchedulePanel extends React.Component {
         axios.get( config.schedule.habitify.url, data )
             .then( (response) => {
                 let entries = response.data.data;
-                let habits  = {};
-
-                for ( var index in entries ) {
-                    let entry = entries[index];
-                    let area  = entry.area.name;
-
-                    if ( !habits.hasOwnProperty( area) )
-                        habits[area] = [];
-
-                    habits[area].push({
-                        id      : entry.id,
-                        name    : entry.name,
-                        status  : entry.status,
-                        priority: entry.priority,
-                        progress: entry.hasOwnProperty( 'progress' ) ? entry.progress : null
-                    })
-                }
-
-                Object.values( habits ).forEach( area => {
-                    area.sort( (a, b) => (a.priority - b.priority) );
-                });
-
-                this.setState({
-                    habits: habits
-                });
+                this.props.dispatch( set_habits( entries ) );
             })
-
     }
 
     componentDidMount() {
-        // this.fetchHabits();
-        this.timer = setInterval( this.fetchHabits, config.schedule.habitify.poll_interval );
+        this.timer.on( 'tick', (ms) => this.fetchHabits() );
+        this.timer.start({ interval: config.schedule.habitify.poll_interval, stopwatch: false })
+    }
+
+
+    componentDidUpdate( prevProps ) {
+        if ( this.props.selected_tab === 4 )
+            this.timer.resume();
+        else
+            this.timer.pause();
     }
 
     componentWillUnmount() {
-        clearInterval( this.timer );
+        this.timer.stop();
     }
 
     renderItems( key ) {
-        const { habits } = this.state;
+        const { habits } = this.props;
 
         var result = [
             <Paper className="paper schedule-habit-area" elevation={0} key={0}>
@@ -179,4 +161,11 @@ class SchedulePanel extends React.Component {
 }
 
 
-export default SchedulePanel;
+const mapStateToProps = state => {
+    return {
+        selected_tab: state.dashboard.selected_tab,
+        habits      : state.schedule.habits,
+    }
+}
+
+export default connect( mapStateToProps )( SchedulePanel );

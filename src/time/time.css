@@ -3,16 +3,16 @@
     font-size     : 50px;
     font-weight   : 600;
     letter-spacing: 3px;
-    color         : #666 !important;
+    color         : #888 !important;
     text-transform: uppercase;
 }
 
 .time-time {
+    vertical-align: middle !important;
     text-align    : left;
     font-size     : 100px;
     font-weight   : 800;
     letter-spacing: 3px;
     margin-left   : 15px;
     color         : #FFF !important;
-
 }

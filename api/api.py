@@ -5,18 +5,20 @@ import os
 from sanic          import Sanic, Blueprint
 from sanic_cors     import CORS
 
-from modules.language        import language
-from modules.space           import space
-from modules.usb_devices     import usb_devices
-from modules.tab             import tab
-from modules.now_playing     import now_playing
-from modules.game_info       import game_info
-
+from modules.language      import language
+from modules.space         import space
+from modules.usb_devices   import usb_devices
+from modules.tab           import tab
+from modules.brightness    import brightness
+from modules.now_playing   import now_playing
+from modules.game_info     import game_info
+from modules.device_status import device_status
+from modules.dashboard     import dashboard
 
 app = Sanic( "Dashboard" )
 blueprint_groups = {
-    'device_status': Blueprint.group( language, space, usb_devices, url_prefix = '/device_status' ),
-    'dashboard'    : Blueprint.group( tab, url_prefix = '/dashboard' ),
+    'device_status': Blueprint.group( language, space, usb_devices, device_status, url_prefix = '/device_status' ),
+    'dashboard'    : Blueprint.group( dashboard, tab, brightness, url_prefix = '/dashboard' ),
     'now_playing'  : Blueprint.group( now_playing, url_prefix = '/now_playing' ),
     'game_info'    : Blueprint.group( game_info, url_prefix = '/game_info' ),
 }

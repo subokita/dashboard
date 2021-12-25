@@ -3,38 +3,24 @@ import "./device-status.css"
 import React           from 'react';
 import { Box, Grid }   from '@mui/material';
 import config          from "../config.json"
-import WebSocketHelper from '../common/websocket_helper.js';
 
 class Space extends React.Component {
-    constructor( props ){
-        super( props );
-        this.state = {
-            selected: ''
-        };
 
-        this.ws_helper = new WebSocketHelper( config.space.websocket.url, config.space.websocket.poll_interval );
+    shouldComponentUpdate( next_props, next_state ) {
+        return this.props.selected !== next_props.selected;
     }
-
-    componentDidMount() {
-        this.ws_helper.onMessage = (event) => {
-            this.setState({
-                selected: event.data.trim().toLowerCase()
-            })
-        };
-        this.ws_helper.start();
-    }
-
 
     render() {
-        const { selected } = this.state;
+        const { selected } = this.props;
+
         return (
             <Box sx={{ width: Number( this.props.width ) }}>
                 <Grid className="round-container" container spacing={0}>
                     {
                         config.space.list.map( (space, index) => (
-                            space.trim().toLowerCase() === selected
-                            ? <Grid className="device-status-selected" item xs={4} key={index}> {space} </Grid>
-                            : <Grid className="paper" item xs={4} key={index}> {space} </Grid>
+                            space.name.trim().toLowerCase() === selected
+                            ? <Grid className="device-status-selected" item xs={4} key={index}> {space.name} </Grid>
+                            : <Grid className="paper" item xs={4} key={index}>{space.name}</Grid>
                         ))
                     }
                 </Grid>
@@ -43,5 +29,8 @@ class Space extends React.Component {
     }
 }
 
+Space.defaultProps = {
+    selected: 'web'
+};
 
 export default Space;

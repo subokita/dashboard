@@ -18,6 +18,7 @@ sanic==21.9.1
 Sanic-Cors==1.0.1
 sanic-plugin-toolkit==1.2.0
 sanic-routing==0.7.2
+things.py==0.0.14
 typing-extensions==3.10.0.2
 ujson==4.2.0
 urllib3==1.26.7

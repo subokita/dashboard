@@ -1,0 +1,52 @@
+.twitch-chat-container{
+}
+
+.twitch-chat {
+    margin-left  : 30px;
+    border-radius: 10px;
+    height       : 320px;
+    width        : 400px;
+    border       : solid 10px rgba(34, 34, 34, 0.85);
+}
+
+.twitch-events {
+    height: 150px;
+    width : 500px;
+    border: none;
+}
+
+.twitch-obs-detail {
+    font-size  : 18px;
+    font-family: 'Noto Sans Mono';
+
+}
+
+.twitch-status-on {
+    color:  #0f0;
+}
+
+
+.twitch-status-off {
+    color:  #f00;
+}
+
+.twitch-scene {
+    font-family   : 'Noto Sans Mono';
+    font-size     : 20px;
+    font-weight   : bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align    : center;
+}
+
+.twitch-scene-streaming {
+    background-color: #0f0 !important;
+    color           : #000 !important;
+    border-radius   : 15px !important;
+}
+
+.twitch-scene-break {
+    background-color: #ff0 !important;
+    color           : #000 !important;
+    border-radius   : 15px !important;
+}

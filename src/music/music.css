@@ -1,26 +1,28 @@
 .music-album-art {
-    background:  transparent !important;
+    background: transparent !important;
     text-align: center;
-    color     :  #666 !important;
+    color     : #666 !important;
+    z-index   : 5;
 }
 
 .music-album-art-image{
     border       : solid 3px #aaa;
     border-radius: 15%;
-    box-shadow   : 0px 0px 50px 0px #000;
+    box-shadow   : 0px 0px 50px 20px #000;
     width        : auto;
     height       : 300px;
-    perspective  : 800px;
+    max-width    : 350px;
+    max-height   : 300px;
 }
 
 
 .music-album-art-dimming{
-    animation: music-dimming 1500ms linear 1;
+    /*animation: music-dimming 1500ms linear 1;*/
 }
 
 
 .music-album-art-glowing{
-    animation: music-glowing 1500ms ease infinite;
+    /*animation: music-glowing 1500ms ease infinite;*/
 }
 
 
@@ -29,6 +31,7 @@
         box-shadow: 0 0 50px 0px #000;
     }
 }
+
 
 
 @keyframes music-glowing {
@@ -51,7 +54,7 @@
     font-weight   : 600;
     background    : rgba( 255, 255, 255, 0.7 ) !important;
     border-radius : 25px !important;
-    color         : #666 !important;
+    color         : #000 !important;
     letter-spacing: 3px;
     font-family   : 'Noto Sans';
     padding       : 5px;
@@ -72,7 +75,7 @@
     font-weight   : 600;
     font-style    : italic;
     margin-top    : 10px;
-    color         : #999 !important;
+    color         : #AAA !important;
     letter-spacing: 2px;
     font-family   : 'Noto Sans';
     /*text-shadow   : -1px 1px 2px #000, 1px 1px 2px #000, 1px -1px 0 #000, -1px -1px 0 #000;*/

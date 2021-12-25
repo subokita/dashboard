@@ -15,16 +15,21 @@
         "axios": "^0.24.0",
         "date-fns": "^2.27.0",
         "moment": "^2.29.1",
+        "obs-websocket-js": "^4.0.3",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
+        "react-matrix-effect": "^1.1.0",
         "react-redux": "^7.2.6",
         "react-scripts": "4.0.3",
         "react-swipeable-views": "^0.14.0",
+        "tiny-timer": "^1.6.0",
         "web-vitals": "^1.0.1"
     },
     "scripts": {
         "start": "react-scripts start",
-        "start-api": "cd api && venv/bin/sanic api.app --host=0.0.0.0 --port=44445 --reload",
+        "start-https": "HTTPS=true SSL_CRT_FILE=./.cert/cert.pem SSL_KEY_FILE=./.cert/key.pem react-scripts start",
+        "start-api": "cd api && venv/bin/sanic api.app --host=0.0.0.0 --port=44445 --reload --debug",
+        "start-api-https": "cd api && venv/bin/sanic api.app --host=0.0.0.0 --port=44445 --reload --debug --cert=../.cert/cert.pem --key=../.cert/key.pem",
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject"

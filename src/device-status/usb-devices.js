@@ -1,36 +1,14 @@
 import "../index.css"
 import "./device-status.css"
-import React           from 'react';
-import { Box, Grid }   from '@mui/material';
-import config          from "../config.json"
-import WebSocketHelper from '../common/websocket_helper.js';
+import React         from 'react';
+import { Box, Grid } from '@mui/material';
+import config        from "../config.json"
 
 
 class USBDevices extends React.Component {
-    constructor( props ){
-        super( props );
-        this.state = {
-            connected         : [],
-            newly_connected   : [],
-            newly_disconnected: []
-        };
-
-        this.ws_helper = new WebSocketHelper( config.usb.websocket.url, config.usb.websocket.poll_interval );
-    }
-
-
-    componentDidMount() {
-        this.ws_helper.onMessage = (event) => {
-            this.setState({
-                connected: JSON.parse( event.data ),
-            })
-        };
-        this.ws_helper.start();
-    }
-
 
     renderItem( item, index ) {
-        const { connected } = this.state;
+        const { connected } = this.props;
         const class_name    = connected.includes( item.id ) ? 'blinking-on' : 'blinking-off'
 
         return (
@@ -43,12 +21,18 @@ class USBDevices extends React.Component {
         );
     }
 
+    shouldComponentUpdate( next_props, next_state ) {
+        if ( this.props.selected_tab === 1 )
+            return JSON.stringify( this.props.connected ) !== JSON.stringify( next_props.connected )
+        return this.props.selected_tab !== next_props.selected_tab;
+    }
 
     render() {
+        const { selected_tab } = this.props;
         return (
             <Box sx={{ width: Number( this.props.width ) }}>
                 <Grid container spacing={0} className="round-container" height={360}>
-                    <Grid container spacing={0} className="device-status-usb">
+                    <Grid container spacing={0} className={ selected_tab === 1 ? "device-status-usb" : ""}>
                         {
                             config.usb.list.map( (item, index) => (
                                 this.renderItem( item, index )
@@ -66,13 +50,9 @@ class USBDevices extends React.Component {
     }
 }
 
+USBDevices.defaultProps = {
+    selected_tab: 1,
+    connected   : []
+};
 
 export default USBDevices;
-
-
-
-
-
-
-
-

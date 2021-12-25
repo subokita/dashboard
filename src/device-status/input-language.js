@@ -1,33 +1,16 @@
 import "../index.css"
 import "./device-status.css"
-import React           from 'react';
-import { Box, Grid }   from '@mui/material';
-import config          from "../config.json"
-import WebSocketHelper from '../common/websocket_helper.js';
-
+import React         from 'react';
+import { Box, Grid } from '@mui/material';
+import config        from "../config.json"
 
 class InputLanguage extends React.Component {
-    constructor( props ){
-        super( props );
-        this.state = {
-            selected: 'english',
-        };
-
-        this.ws_helper = new WebSocketHelper( config.language.websocket.url, config.language.websocket.poll_interval );
-    }
-
-
-    componentDidMount() {
-        this.ws_helper.onMessage = (event) => {
-            this.setState({
-                selected: event.data.trim().toLowerCase(),
-            })
-        };
-        this.ws_helper.start();
+    shouldComponentUpdate( next_props, next_state ) {
+        return this.props.selected !== next_props.selected;
     }
 
     render() {
-        const { selected } = this.state;
+        const { selected } = this.props;
 
         return (
             <Box sx={{ width: Number( this.props.width ) }}>
@@ -51,4 +34,8 @@ class InputLanguage extends React.Component {
 }
 
 
-export default InputLanguage
+InputLanguage.defaultProps = {
+    selected: 'english'
+};
+
+export default InputLanguage;

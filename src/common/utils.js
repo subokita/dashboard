@@ -11,7 +11,7 @@ class Logger {
         this._debug = document.getElementById( 'debug' );
     }
 
-    log( ... logs ) {
+    log( ...logs ) {
         for ( var index in logs ) {
             this._debug.innerText += `${ JSON.stringify(logs[index]) }\n`;
         }

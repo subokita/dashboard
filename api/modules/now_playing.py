@@ -4,7 +4,6 @@
 import os
 import io
 import ujson
-import colorsys
 import asyncio
 from urllib.parse            import unquote
 from sanic                   import Blueprint
@@ -58,9 +57,9 @@ async def handle_plex( request: Request ) -> HTTPResponse:
             bytes_io    = io.BytesIO( album_art )
             color_thief = ColorThief( bytes_io )
 
-            palette        = color_thief.get_palette( color_count = 4, quality = 5 )
-            hls_palette    = [ colorsys.rgb_to_hls( *[component / 255.0 for component in color] )  for color in palette]
-            redis_manager.album_color = hls_palette
+            palette     = color_thief.get_palette( color_count = 4, quality = 5 )
+            rgb_palette = [ f'#{component[0]:02X}{component[1]:02X}{component[2]:02X}' for component in palette ]
+            redis_manager.album_color = rgb_palette
 
             asyncio.ensure_future( run_yeelight_color_change( palette[0] ) )
             pass

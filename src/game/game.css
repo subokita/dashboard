@@ -1,0 +1,52 @@
+.game-art-image{
+    border       : solid 3px #aaa;
+    border-radius: 15%;
+    box-shadow   : 0px 0px 50px 0px #000;
+    width        : auto;
+    height       : 300px;
+    max-width    : 350px;
+    max-height   : 300px;
+}
+
+.game-detail-container {
+    overflow: hidden;
+    height  :  250px;
+}
+
+.game-detail {
+    animation  : scroll 7s linear infinite;
+}
+
+.game-detail-header {
+    font-family     : 'Noto Sans Mono';
+    font-size       : 20px;
+    background-color: #444;
+    border-radius   : 15px;
+    text-indent     : 15px;
+    text-transform  : uppercase;
+    letter-spacing  : 2px;
+}
+
+.game-detail-entry {
+    font-family: 'Noto Sans Mono';
+    font-size  : 20px;
+    padding    : 5px 5px 5px 30px;
+}
+
+.game-deck {
+    font-family: 'Noto Sans Mono';
+    font-size  : 20px;
+    font-style : italic;
+}
+
+.game-title {
+    font-family   : 'Noto Sans Mono';
+    font-size     : 30px;
+    letter-spacing: 2px;
+    font-weight   : 700;
+    text-align    : center;
+    z-index       : 2;
+}
+
+
+

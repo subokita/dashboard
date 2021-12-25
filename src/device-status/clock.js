@@ -6,29 +6,13 @@ import { Box, Grid } from '@mui/material';
 import config        from "../config.json"
 
 class Clock extends React.Component {
-    constructor( props ){
-        super( props );
-        this.state = {
-            start_time  : moment(),
-            current_time: moment()
-        }
-    }
-
-    componentDidMount() {
-        this.timer_ID = setInterval( () => this.tick(), 1000 );
-    }
-
-    componentWillUnmount() {
-        clearInterval( this.timer_ID );
-    }
-
-    tick() {
-        this.setState({ current_time: moment() });
+    shouldComponentUpdate( next_props, next_state ) {
+        return this.props.current_time !== next_props.current_time;
     }
 
     render() {
-        const { current_time } = this.state;
-        const time_format = current_time.seconds() % 2 ? 'HH:mm' : 'HH mm'
+        const current_time = moment( this.props.current_time );
+        const time_format  = current_time.seconds() % 2 ? 'HH:mm' : 'HH mm'
 
         return (
             <Box sx={{ width: Number( this.props.width ) }}>
@@ -59,5 +43,10 @@ class Clock extends React.Component {
         );
     }
 }
+
+
+Clock.defaultProps = {
+    current_time: moment().toISOString()
+};
 
 export default Clock;

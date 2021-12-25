@@ -1,27 +1,19 @@
 import "../index.css"
 import "./music.css"
-import axios                        from 'axios'
-import React                        from 'react';
-import { Box, Grid, Paper, Button } from '@mui/material';
-import config                       from "../config.json"
-import ArrowCircleLeftOutlinedIcon  from '@mui/icons-material/ArrowCircleLeftOutlined';
-import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
-import WebSocketHelper              from '../common/websocket_helper.js';
+import React                                from 'react';
+import { connect }                          from 'react-redux'
+import { Box, Grid, Paper, Button }         from '@mui/material';
+import config                               from "../config.json"
+import ArrowCircleLeftOutlinedIcon          from '@mui/icons-material/ArrowCircleLeftOutlined';
+import ArrowCircleRightOutlinedIcon         from '@mui/icons-material/ArrowCircleRightOutlined';
+import WebSocketHelper                      from '../common/websocket_helper.js';
+import { set_movie, set_episode, set_track,
+         play_pause, previous, next }       from '../store/slices/music_slice.js'
 
 
 class MusicPanel extends React.Component {
     constructor( props ){
         super( props );
-        this.state = {
-            status     : "",
-            artist     : "",
-            album      : "",
-            year       : "",
-            title      : "",
-            thumb      : "",
-            album_color: null,
-        }
-
         this.ws_helper = new WebSocketHelper( config.now_playing.websocket.url, config.now_playing.websocket.poll_interval );
     }
 
@@ -31,24 +23,21 @@ class MusicPanel extends React.Component {
 
             const info = JSON.parse( event.data );
 
-            this.setState({
-                status     : info.status,
-                artist     : info.artist,
-                album      : info.album,
-                year       : (typeof info.year === 'number') ? `(${info.year})` : "",
-                title      : info.title,
-                thumb      : info.thumb,
-                album_color: JSON.parse( info.album_color ),
-            });
+            switch( info.type ) {
+                case 'movie':
+                    this.props.dispatch( set_movie( info ) );
+                    break
+                case 'episode':
+                    this.props.dispatch( set_episode( info ) );
+                    break
+                case 'track':
+                    this.props.dispatch( set_track( info ) );
+                    break
+                default:
+            }
+
         };
         this.ws_helper.start();
-    }
-
-
-    shouldComponentUpdate( next_props, next_state ) {
-        if (this.state !== next_state )
-            return true;
-        return false;
     }
 
 
@@ -60,72 +49,61 @@ class MusicPanel extends React.Component {
 
 
     playPause = () => {
-        switch( this.state.status ) {
-            case 'media.play':
-            case 'media.resume':
-            case 'media.scrobble':
-                axios.put( `${config.now_playing.rest.pause}` );
-                return;
-            default:
-                axios.put( `${config.now_playing.rest.play}` );
-        }
+        this.props.dispatch( play_pause() );
     }
 
     skipPrevious = () => {
-        axios.put( `${config.now_playing.rest.prev}` );
+        this.props.dispatch( previous() );
     }
 
     skipNext = () => {
-        axios.put( `${config.now_playing.rest.next}` );
+        this.props.dispatch( next() );
     }
 
-    animateBackground( state ) {
-        switch( state.status ) {
+    animateBackground( status, background ) {
+        const background_element = document.getElementById( 'background-image' );
+
+        switch( status ) {
+            case 'media.rate':
+                break;
             case 'media.play':
             case 'media.resume':
             case 'media.scrobble':
-                var hsls = [];
-                for( var index in state.album_color ) {
-                    const hue = state.album_color[index][0] * 360;
-                    const lum = Math.min( state.album_color[index][1] * 100, 30 );
-                    const sat = state.album_color[index][2] * 100;
-
-                    hsls[index] = `hsl( ${hue}, ${sat}%, ${lum}% )`
-                }
-
-                document.body.style.background     = `linear-gradient(-45deg, ${hsls[2]}, ${hsls[1]}, ${hsls[0]}, ${hsls[0]} )`;
-                document.body.style.backgroundSize = '200% 200%';
+                // background.style.backgroundImage = `linear-gradient(-45deg, ${album_color[2]}, ${album_color[1]}, ${album_color[0]}, ${album_color[0]} )`;
+                // background.style.backgroundSize  = '200% 200%';
+                background_element.style.backgroundImage = `url("${config.plex.server}${background}")`;
                 break;
             default:
-                document.body.style.background     = `#333`;
-                document.body.style.backgroundSize = '100% 100%';
+                background_element.style.background = '';
+                background_element.style.backgroundSize = '100% 100%';
                 break;
         }
     }
 
 
-    renderAlbumArt( state ) {
-        switch( state.status ) {
+    renderAlbumArt( status, thumb ) {
+        switch( status ) {
             case 'media.play':
             case 'media.resume':
             case 'media.scrobble':
                 return <img className = "music-album-art-image music-album-art-glowing"
                             id        = "album-art"
                             alt       = "album art"
-                            src       = {`${config.plex.server}${state.thumb}`}/>;
+                            src       = {`${config.plex.server}${thumb}`}/>;
             default:
                 return <img className = "music-album-art-image music-album-art-dimming"
                             id        = "album-art"
                             alt       = "album art"
-                            src       = {`${config.plex.server}${state.thumb}`}/>;
+                            src       = {`${config.plex.server}${thumb}`}/>;
         }
     }
 
 
 
     render() {
-        this.animateBackground( this.state );
+        const { artist, title, album, year, status, thumb, background } = this.props;
 
+        this.animateBackground( status, background );
 
         return (
             <Box sx={{ width: Number( this.props.width ), overflow: 'hidden' }}>
@@ -134,7 +112,7 @@ class MusicPanel extends React.Component {
                         <Box className="box" width={400}>
                             <Paper elevation={0} className="paper music-album-art">
                                 <Button onClick={this.playPause}>
-                                    {this.renderAlbumArt(this.state)}
+                                    {this.renderAlbumArt( status, thumb )}
                                 </Button>
                             </Paper>
                         </Box>
@@ -144,7 +122,7 @@ class MusicPanel extends React.Component {
                             <Grid container>
                                 <Grid item xs={12}>
                                     <Paper elevation={0} className="paper music-artist">
-                                        {this.renderMarquee( 25, `${this.state.artist}` )}
+                                        {this.renderMarquee( 25, `${artist}` )}
                                     </Paper>
 
                                     <Grid container className="music-artist-bar" spacing={2}>
@@ -155,7 +133,7 @@ class MusicPanel extends React.Component {
                                         </Grid>
                                         <Grid item xs={10}>
                                             <Paper elevation={0} className="paper music-title">
-                                                {this.renderMarquee( 40, `${this.state.title}` )}
+                                                {this.renderMarquee( 40, `${title}` )}
                                             </Paper>
                                         </Grid>
                                         <Grid item xs={1}>
@@ -166,7 +144,7 @@ class MusicPanel extends React.Component {
                                     </Grid>
 
                                     <Paper elevation={0} className="paper music-album">
-                                        {this.renderMarquee( 35, `${this.state.album} ${this.state.year}` )}
+                                        {this.renderMarquee( 35, `${album} ${year}` )}
                                     </Paper>
                                 </Grid>
                             </Grid>
@@ -179,4 +157,19 @@ class MusicPanel extends React.Component {
 }
 
 
-export default MusicPanel;
+
+const mapStateToProps = state => {
+    return {
+        selected_tab: state.dashboard.selected_tab,
+        status      : state.music.status,
+        artist      : state.music.artist,
+        album       : state.music.album,
+        year        : state.music.year,
+        title       : state.music.title,
+        thumb       : state.music.thumb,
+        background  : state.music.background,
+        album_color : state.music.album_color,
+    }
+}
+
+export default connect( mapStateToProps )( MusicPanel );

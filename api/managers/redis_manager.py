@@ -12,10 +12,10 @@ class RedisManager( object ):
 
     def __init__( self, host: str, port: int, db: int ):
         super( RedisManager, self ).__init__()
-        self._host   = host
-        self._port   = port
-        self._db     = db
-        self._client = redis.Redis( host = self._host, port = self._port, db = self._db )
+        self._host         = host
+        self._port         = port
+        self._db           = db
+        self._client       = redis.Redis( host = self._host, port = self._port, db = self._db )
         return
 
 
@@ -53,6 +53,17 @@ class RedisManager( object ):
 
 
     @property
+    def brightness( self ) -> str:
+        return self._client.get( 'brightness' ).decode( 'utf-8' )
+
+
+    @brightness.setter
+    def brightness( self, value: float ):
+        self._client.set( 'brightness', value )
+        return
+
+
+    @property
     def usb_devices( self ) -> list:
         return [usb_device.decode( 'utf-8' ) for usb_device in self._client.smembers( 'usb_devices' )]
 
@@ -71,13 +82,23 @@ class RedisManager( object ):
 
     @now_playing.setter
     def now_playing( self, payload ):
+
         self._client.set( 'now_playing', ujson.dumps({
-            'status': payload.event,
-            'artist': payload.Metadata.grandparentTitle,
-            'album' : payload.Metadata.parentTitle,
-            'year'  : payload.Metadata.parentYear,
-            'title' : payload.Metadata.title,
-            'thumb' : payload.Metadata.thumb if 'track' in payload.Metadata.type else payload.Metadata.parentThumb,
+            'status'           : payload.event,
+            'year'             : payload.Metadata.year,
+            'title'            : payload.Metadata.title,
+            'type'             : payload.Metadata.type,
+            'thumb'            : payload.Metadata.thumb,
+            'index'            : payload.Metadata.index,
+            'director'         : [ director.toDict() for director in payload.Metadata.Director ],
+            'air_date'         : payload.Metadata.originallyAvailableAt,
+
+            'parent_index'     : payload.Metadata.parentIndex,
+            'parent_title'     : payload.Metadata.parentTitle,
+            'parent_thumb'     : payload.Metadata.parentThumb,
+            'parent_year'      : payload.Metadata.parentYear,
+            'grandparent_title': payload.Metadata.grandparentTitle,
+            'grandparent_thumb': payload.Metadata.grandparentThumb,
         }))
 
         return

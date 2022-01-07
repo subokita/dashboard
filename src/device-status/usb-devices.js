@@ -22,13 +22,14 @@ class USBDevices extends React.Component {
     }
 
     shouldComponentUpdate( next_props, next_state ) {
-        if ( this.props.selected_tab === 1 )
+        if ( this.props.selected_tab === this.props.index )
             return JSON.stringify( this.props.connected ) !== JSON.stringify( next_props.connected )
         return this.props.selected_tab !== next_props.selected_tab;
     }
 
     render() {
         const { selected_tab } = this.props;
+
         return (
             <Box sx={{ width: Number( this.props.width ) }}>
                 <Grid container spacing={0} className="round-container" height={360}>

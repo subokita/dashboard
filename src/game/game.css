@@ -14,7 +14,7 @@
 }
 
 .game-detail {
-    animation  : scroll 7s linear infinite;
+    animation  : vertical_scroll 7s linear infinite;
 }
 
 .game-detail-header {

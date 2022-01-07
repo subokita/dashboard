@@ -81,11 +81,11 @@
 }
 
 .device-status-usb {
-    animation  : scroll 10s linear infinite;
+    animation  : vertical_scroll 10s linear infinite;
     overflow   : hidden;
 }
 
-@keyframes scroll {
+@keyframes vertical_scroll {
     0%   { transform: translateY(   0% ); }
     100% { transform: translateY( -50% ); }
 }

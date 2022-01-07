@@ -1,15 +1,16 @@
 import "../index.css"
 import "./music.css"
+import config                               from "../config.json"
 import React                                from 'react';
 import { connect }                          from 'react-redux'
+import Marquee                              from "react-fast-marquee";
 import { Box, Grid, Paper, Button }         from '@mui/material';
-import config                               from "../config.json"
 import ArrowCircleLeftOutlinedIcon          from '@mui/icons-material/ArrowCircleLeftOutlined';
 import ArrowCircleRightOutlinedIcon         from '@mui/icons-material/ArrowCircleRightOutlined';
 import WebSocketHelper                      from '../common/websocket_helper.js';
 import { set_movie, set_episode, set_track,
          play_pause, previous, next }       from '../store/slices/music_slice.js'
-
+import { out_of_range }                     from '../common/utils.js'
 
 class MusicPanel extends React.Component {
     constructor( props ){
@@ -43,7 +44,7 @@ class MusicPanel extends React.Component {
 
     renderMarquee( min_len, text ) {
         if ( text.length > min_len )
-            return ( <marquee width="100%" scrollamount="10">{text}</marquee> )
+            return ( <Marquee gradient={false} speed={30} className="marquee">{text}</Marquee> )
         return text;
     }
 
@@ -101,9 +102,13 @@ class MusicPanel extends React.Component {
 
 
     render() {
-        const { artist, title, album, year, status, thumb, background } = this.props;
+        const { artist, title, album, year, status,
+                thumb, background, width, selected_tab, index } = this.props;
 
         this.animateBackground( status, background );
+
+        if ( out_of_range( index, selected_tab ) )
+            return (<Box sx={{ width: Number( width ), overflow: 'hidden' }}/>)
 
         return (
             <Box sx={{ width: Number( this.props.width ), overflow: 'hidden' }}>
@@ -125,7 +130,7 @@ class MusicPanel extends React.Component {
                                         {this.renderMarquee( 25, `${artist}` )}
                                     </Paper>
 
-                                    <Grid container className="music-artist-bar" spacing={2}>
+                                    <Grid container className="music-title-bar" spacing={2}>
                                         <Grid item xs={1}>
                                             <Button onClick={this.skipPrevious}>
                                                 <ArrowCircleLeftOutlinedIcon fontSize="large" className="music-button"/>

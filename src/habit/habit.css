@@ -1,0 +1,65 @@
+.habit-container {
+    /*background-color: rgb(51, 51, 51, 0.7) !important;
+    box-shadow      : 7px 7px 14px #1e1e1e, -7px -7px 14px #484848;*/
+    display           : flex !important;
+    flex-direction    : column !important;
+    height            : 380px;
+    margin            : 0px 0px 0px 15px !important;
+}
+
+
+
+.habit-area {
+    text-align      : left;
+    text-indent     : 15px;
+    color           : white !important;
+    background-color: rgba(34, 34, 34, 0.8) !important;
+    font-family     : 'Noto Sans Mono';
+    font-size       : 20px;
+    letter-spacing  : 1px;
+    margin-top      : 5px;
+    margin-bottom   : 5px;
+    border-radius   : 10px !important;
+}
+
+.habit-entry-container {
+    background-color: rgba(34, 34, 34, 0.2) !important;
+    padding: 0px 2px 0px 0px !important;
+}
+
+.habit-entry {
+    text-align : left;
+    font-family: 'Noto Sans';
+    letter-spacing: 1px;
+    font-size  : 16px;
+    text-indent: 8px !important;
+    padding    :  3px;
+}
+
+.habit-checklist {
+    margin-left:  20px;
+}
+
+.habit-entry-pending {
+    color: #ddd !important;
+}
+
+.habit-entry-done {
+    /*color          : green !important;*/
+    color: #777 !important;
+    text-decoration: line-through;
+}
+
+.habit-tick {
+    font-size: 12px !important;
+    margin-right: 5px;
+}
+
+.habit-completion {
+    color         : rgba( 199, 199, 199, 0.5);
+    font-size     : 36px !important;
+    letter-spacing: 1px !important;
+    font-family   : 'Noto Sans Mono' !important;
+    font-weight   : bold;
+    text-align    : right;
+}

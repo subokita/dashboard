@@ -1,4 +1,5 @@
 import "../index.css"
+import config                from "../config.json"
 import React                 from 'react';
 import { Paper }             from '@mui/material'
 import Stack                 from '@mui/material/Stack';
@@ -9,11 +10,14 @@ import Space                 from './space.js'
 import USBDevices            from './usb-devices.js'
 import { connect }           from 'react-redux'
 import { set_device_status } from '../store/slices/device_status_slice.js'
+import { notify }            from '../store/slices/dashboard_slice.js'
+import { out_of_range }      from '../common/utils.js'
+
 
 class DeviceStatusPanel extends React.Component {
     constructor( props ){
         super( props );
-        this.ws_helper = new WebSocketHelper( '/device_status', 500 );
+        this.ws_helper = new WebSocketHelper( config.device_status.websocket.url, config.device_status.websocket.poll_interval );
     }
 
     componentDidMount() {
@@ -25,31 +29,40 @@ class DeviceStatusPanel extends React.Component {
     }
 
     componentDidUpdate( prevProps ) {
-        if ( this.props.selected_tab === 1 )
-            this.ws_helper.resume();
-        else
-            this.ws_helper.pause();
+        // if ( this.props.selected_tab === this.props.index )
+        //     this.ws_helper.resume();
+        // else
+        //     this.ws_helper.pause();
+
+        if ( this.props.language !== prevProps.language )
+            this.props.dispatch( notify( `💬 ${this.props.language.replace(/^\w/, c => c.toUpperCase())}` ) )
+
+        if ( this.props.space !== prevProps.space )
+            this.props.dispatch( notify( `🖥 ${this.props.space.replace(/^\w/, c => c.toUpperCase())}` ) )
     }
 
 
     render() {
-        const { selected_tab, current_time, space, language, connected_devices } = this.props;
+        const { selected_tab, current_time, space, language, connected_devices, index } = this.props;
+
+        if ( out_of_range( index, selected_tab ) )
+            return ( <Stack direction="row" spacing={2} className="device-status"/> )
 
         return (
             <Stack direction="row" spacing={2} className="device-status">
                 <Paper className="paper" elevation={0}>
-                    <Clock width="300" current_time={current_time}/>
+                    <Clock index={this.props.index}  width="300" current_time={current_time}/>
                 </Paper>
                 <Stack spacing={1}>
                     <Paper className="paper" elevation={0}>
-                        <InputLanguage width="420" selected={language}  />
+                        <InputLanguage index={this.props.index} width="420" selected={language}  />
                     </Paper>
                     <Paper className="paper" elevation={0}>
-                        <Space width="420" selected={space} />
+                        <Space index={this.props.index} width="420" selected={space} />
                     </Paper>
                 </Stack>
                 <Paper className="paper" elevation={0}>
-                    <USBDevices width="380" selected_tab={selected_tab} connected={connected_devices}/>
+                    <USBDevices index={this.props.index} width="380" selected_tab={selected_tab} connected={connected_devices}/>
                 </Paper>
             </Stack>
         );
@@ -57,7 +70,7 @@ class DeviceStatusPanel extends React.Component {
 }
 
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
     return {
         selected_tab     : state.dashboard.selected_tab,
         current_time     : state.dashboard.current_time,

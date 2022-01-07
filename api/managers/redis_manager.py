@@ -149,6 +149,15 @@ class RedisManager( object ):
         return
 
 
+    @property
+    def translation( self ):
+        return self._client.get( 'translation' ).decode( 'utf-8' )
+
+    @translation.setter
+    def translation( self, payload ):
+        self._client.set( 'translation', ujson.dumps( payload ) )
+
+
 
 redis_manager = RedisManager(
     host = config.redis.host,

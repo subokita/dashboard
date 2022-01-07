@@ -9,7 +9,7 @@ import React        from 'react';
 import { Grid }     from '@mui/material';
 import { set_heartbeat_state, set_boya_lavalier_mic,
          set_elgato_hd_60s, set_blackhole, set_current_scene } from '../store/slices/twitch_slice.js'
-
+import { out_of_range }     from '../common/utils.js'
 
 class TwitchPanel extends React.Component {
     constructor( props ){
@@ -89,25 +89,21 @@ class TwitchPanel extends React.Component {
         const { streaming, boya_lavalier_mic, elgato_hd_60s, blackhole,
                 total_stream_time, cpu_usage, fps, num_dropped_frames,
                 num_total_frames, render_missed_frames, render_total_frames,
-                strain, current_scene, selected_tab } = this.props;
+                strain, current_scene, selected_tab, index } = this.props;
+
+        if ( out_of_range( index, selected_tab ) )
+            return (<Grid container spacing={0} sx={{ padding: 3 }}/>)
+
 
         return (
             <Grid container spacing={0} sx={{ padding: 3 }}>
                 <Grid item xs={5} >
-                {
-                    selected_tab === 5
-                    ? <iframe title="twitch-chat" class="twitch-chat" scrolling="no" src={config.twitch.chat.iframe_src}/>
-                    : <div class="twitch-chat"/>
-                }
+                    <iframe title="twitch-chat" className="twitch-chat" scrolling="no" src={config.twitch.chat.iframe_src}/>
                 </Grid>
                 <Grid item xs={7}>
                     <Grid container spacing={3} className="twitch-obs-detail">
                         <Grid item xs={12}>
-                        {
-                            selected_tab === 5
-                            ? <iframe title="twitch-events" class="twitch-events" scrolling="no" src={config.twitch.events.iframe_src}/>
-                            : <div class="twitch-events"/>
-                        }
+                            <iframe title="twitch-events" className="twitch-events" scrolling="no" src={config.twitch.events.iframe_src}/>
                         </Grid>
                         <Grid item xs={5}>
                             <Grid className="round-container" container spacing={0.2}>

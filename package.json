@@ -18,6 +18,7 @@
         "obs-websocket-js": "^4.0.3",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
+        "react-fast-marquee": "^1.2.1",
         "react-matrix-effect": "^1.1.0",
         "react-redux": "^7.2.6",
         "react-scripts": "4.0.3",
@@ -28,8 +29,8 @@
     "scripts": {
         "start": "react-scripts start",
         "start-https": "HTTPS=true SSL_CRT_FILE=./.cert/cert.pem SSL_KEY_FILE=./.cert/key.pem react-scripts start",
-        "start-api": "cd api && venv/bin/sanic api.app --host=0.0.0.0 --port=44445 --reload --debug",
-        "start-api-https": "cd api && venv/bin/sanic api.app --host=0.0.0.0 --port=44445 --reload --debug --cert=../.cert/cert.pem --key=../.cert/key.pem",
+        "start-api": "cd api && ~/opt/anaconda3/envs/dashboard/bin/sanic api.app --host=0.0.0.0 --port=44445 --reload",
+        "start-api-https": "cd api && ~/opt/anaconda3/envs/dashboard/bin/sanic api.app --host=0.0.0.0 --port=44445 --reload --debug --cert=../.cert/cert.pem --key=../.cert/key.pem",
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject"

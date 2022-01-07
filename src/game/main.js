@@ -7,7 +7,7 @@ import { Box, Grid, Paper } from '@mui/material';
 import config               from "../config.json"
 import WebSocketHelper      from '../common/websocket_helper.js';
 import { set_info }         from '../store/slices/game_slice.js'
-
+import { out_of_range }     from '../common/utils.js'
 
 class GamePanel extends React.Component {
     constructor( props ){
@@ -27,7 +27,7 @@ class GamePanel extends React.Component {
 
 
     componentDidUpdate( prevProps ) {
-        if ( this.props.selected_tab === 3 )
+        if ( this.props.selected_tab === this.props.index )
             this.ws_helper.resume();
         else
             this.ws_helper.pause();
@@ -66,10 +66,13 @@ class GamePanel extends React.Component {
 
 
     render() {
-        const { selected_tab, image, name, deck } = this.props;
+        const { selected_tab, image, name, deck, index, width } = this.props;
+
+        if ( out_of_range( index, selected_tab ) )
+            return (<Box sx={{ width: Number( width ), overflow: 'hidden' }}/>)
 
         return (
-            <Box sx={{ width: Number( this.props.width ), overflow: 'hidden' }}>
+            <Box sx={{ width: Number( width ), overflow: 'hidden' }}>
                 <Grid container spacing={3} sx={{ padding: 3 }}>
                     <Grid item xs={4}>
                         <Box className="box">
@@ -85,7 +88,7 @@ class GamePanel extends React.Component {
                             </Grid>
                             <Grid item xs={6}>
                                 <Grid container className="game-detail-container">
-                                    <Grid item xs={12} className={ selected_tab === 3 ? "game-detail" : "" }>
+                                    <Grid item xs={12} className={ selected_tab === index ? "game-detail" : "" }>
                                         {this.renderDetail( this.props ) }
                                         {this.renderDetail( this.props ) }
                                     </Grid>

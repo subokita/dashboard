@@ -35,8 +35,10 @@ export const music_slice = createSlice({
             state.album      = "";
             state.year       = moment( action.payload.air_date, 'YYYY-MM-DD' ).format( 'Do MMM YYYY' );
             state.title      = `Season ${action.payload.parent_index} Episode ${action.payload.index}`;
-            state.thumb      = action.payload.thumb;
-            state.background = action.payload.grandparent_thumb;
+            // state.thumb      = action.payload.thumb;
+            // state.background = action.payload.grandparent_thumb;
+            state.thumb      = action.payload.grandparent_thumb;
+            state.background = action.payload.thumb;
         },
 
 

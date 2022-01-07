@@ -5,6 +5,7 @@
     letter-spacing: 3px;
     color         : #888 !important;
     text-transform: uppercase;
+
 }
 
 .time-time {
@@ -15,4 +16,5 @@
     letter-spacing: 3px;
     margin-left   : 15px;
     color         : #FFF !important;
+    /*text-shadow   : 5px 5px 10px #000, -5px 5px 10px #000, 5px +5px 10px #000, -5px -5px 10px #000;*/
 }

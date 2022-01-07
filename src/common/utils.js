@@ -23,4 +23,9 @@ class Logger {
 }
 
 
+export const out_of_range = ( index, current ) => (
+    index < current - 1 || index > current + 1
+);
+
+
 export const logger = new Logger();

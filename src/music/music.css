@@ -6,13 +6,13 @@
 }
 
 .music-album-art-image{
+    border-radius: 40px;
     border       : solid 3px #aaa;
-    border-radius: 15%;
-    box-shadow   : 0px 0px 50px 20px #000;
+    box-shadow   : 0px 0px 50px 10px #000 !important;
     width        : auto;
-    height       : 300px;
-    max-width    : 350px;
-    max-height   : 300px;
+    height       : auto;
+    max-width    : 320px;
+    max-height   : 320px;
 }
 
 
@@ -41,10 +41,10 @@
 }
 
 .music-button {
-    color: white !important;
+    color: #888 !important;
 }
 
-.music-artist-bar {
+.music-title-bar {
     align-items: center !important;
     margin-left: -25px !important;
 }
@@ -52,14 +52,13 @@
 .music-artist {
     font-size     : 35px;
     font-weight   : 600;
-    background    : rgba( 255, 255, 255, 0.7 ) !important;
     border-radius : 25px !important;
-    color         : #000 !important;
+    color         : black !important;
     letter-spacing: 3px;
     font-family   : 'Noto Sans';
     padding       : 5px;
     margin-bottom : 10px;
-    /*text-shadow   : -1px 1px 2px #000, 1px 1px 2px #000, 1px -1px 0 #000, -1px -1px 0 #000;*/
+    background    : rgba( 255, 255, 255, 0.5 ) !important;
 }
 
 .music-title {
@@ -68,6 +67,11 @@
     font-weight   : 700;
     letter-spacing: 3px;
     font-family   : 'Noto Sans';
+    text-shadow   : 1px 1px 10px #000, -1px 1px 10px #000, 1px -1px 10px #000, -1px -1px 10px #000 !important;
+}
+
+.marquee {
+    text-indent: 100px !important;
 }
 
 .music-album {
@@ -78,5 +82,5 @@
     color         : #AAA !important;
     letter-spacing: 2px;
     font-family   : 'Noto Sans';
-    /*text-shadow   : -1px 1px 2px #000, 1px 1px 2px #000, 1px -1px 0 #000, -1px -1px 0 #000;*/
+    text-shadow   : 1px 1px 10px #000, -1px 1px 10px #000, 1px -1px 10px #000, -1px -1px 10px #000 !important;
 }

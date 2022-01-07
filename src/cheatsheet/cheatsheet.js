@@ -19,8 +19,8 @@ class CheatsheetPanel extends React.Component {
                         <TableHead>
                             <TableRow>
                                 {
-                                    this.props.headers.map((header) => (
-                                        <TableCell className="cheatsheet-table-header">{header}</TableCell>
+                                    this.props.headers.map((header, index) => (
+                                        <TableCell key={index} className="cheatsheet-table-header">{header}</TableCell>
                                     ))
                                 }
                             </TableRow>
@@ -32,8 +32,8 @@ class CheatsheetPanel extends React.Component {
                                         {
                                             row.map(( entry, entry_index ) => (
                                                 entry_index === 0 ?
-                                                    <TableCell className="cheatsheet-table-cell" component="th" scope="row">{entry}</TableCell> :
-                                                    <TableCell className="cheatsheet-table-cell">{entry}</TableCell>
+                                                    <TableCell key={entry_index} className="cheatsheet-table-cell" component="th" scope="row">{entry}</TableCell> :
+                                                    <TableCell key={entry_index} className="cheatsheet-table-cell">{entry}</TableCell>
                                             ))
                                         }
                                     </TableRow>

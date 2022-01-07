@@ -1,0 +1,155 @@
+{
+    "items":
+    [
+        {
+            "uid": "time",
+            "title": "Time",
+            "subtitle": "Shows current time",
+            "match": "0 time",
+            "arg": 0,
+            "icon": {
+                "path": "~/dashboard/public/icons8-clock.png"
+            }
+        },
+        {
+            "uid": "device_status",
+            "title": "Device Status",
+            "subtitle": "Shows computer status",
+            "match": "1 Device Status",
+            "arg": 1,
+            "icon": {
+                "path": "~/dashboard/public/icons8-multiple_devices.png"
+            }
+        },
+        {
+            "uid": "music",
+            "title": "Music",
+            "subtitle": "Shows current Plex track",
+            "match": "2 Music",
+            "arg": 2,
+            "icon": {
+                "path": "~/dashboard/public/icons8-music.png"
+            }
+        },
+        {
+            "uid": "habits",
+            "title": "Habits",
+            "subtitle": "Shows today's habit",
+            "match": "3 Habits",
+            "arg": 3,
+            "icon": {
+                "path": "~/dashboard/public/icons8-today.png"
+            }
+        },
+        {
+            "uid": "todo",
+            "title": "Todo",
+            "subtitle": "Shows today's todo",
+            "match": "4 Todo",
+            "arg": 4,
+            "icon": {
+                "path": "~/dashboard/public/icons8-todo_list.png"
+            }
+        },
+        {
+            "uid": "game",
+            "title": "Game",
+            "subtitle": "Shows currently playing game",
+            "match": "5 Game",
+            "arg": 5,
+            "icon": {
+                "path": "~/dashboard/public/icons8-apple_arcade.png"
+            }
+        },
+        {
+            "uid": "twitch",
+            "title": "Twitch",
+            "subtitle": "Shows Twitch / stream info",
+            "match": "6 Twitch",
+            "arg": 6,
+            "icon": {
+                "path": "~/dashboard/public/icons8-twitch.png"
+            }
+        },
+        {
+            "uid": "dictionary",
+            "title": "Dictionary",
+            "subtitle": "Shows translated word",
+            "match": "7 Dictionary",
+            "arg": 7,
+            "icon": {
+                "path": "~/dashboard/public/icons8-dictionary.png"
+            }
+        },
+        {
+            "uid": "czech",
+            "title": "Czech",
+            "subtitle": "Shows Czech cheatsheet",
+            "match": "8 Czech",
+            "arg": 8,
+            "icon": {
+                "path": "~/dashboard/public/icons8-czech_republic.png"
+            }
+        },
+        {
+            "uid": "hebrew",
+            "title": "Hebrew",
+            "subtitle": "Shows Hebrew cheatsheet",
+            "match": "9 Hebrew",
+            "arg": 9,
+            "icon": {
+                "path": "~/dashboard/public/icons8-israel.png"
+            }
+        },
+        {
+            "uid": "russian",
+            "title": "Russian",
+            "subtitle": "Shows Russian cheatsheet",
+            "match": "10 Russian",
+            "arg": 10,
+            "icon": {
+                "path": "~/dashboard/public/icons8-russian_federation.png"
+            }
+        },
+        {
+            "uid": "korean",
+            "title": "Korean",
+            "subtitle": "Shows Korean cheatsheet",
+            "match": "11 Korean",
+            "arg": 11,
+            "icon": {
+                "path": "~/dashboard/public/icons8-south_korea.png"
+            }
+        },
+        {
+            "uid": "swedish",
+            "title": "Swedish",
+            "subtitle": "Shows Swedish cheatsheet",
+            "match": "12 Swedish",
+            "arg": 12,
+            "icon": {
+                "path": "~/dashboard/public/icons8-sweden.png"
+            }
+        },
+        {
+            "uid": "swahili",
+            "title": "Swahili",
+            "subtitle": "Shows Swahili cheatsheet",
+            "match": "13 Swahili",
+            "arg": 13,
+            "icon": {
+                "path": "~/dashboard/public/icons8-tanzania.png"
+            }
+        },
+        {
+            "uid": "turkish",
+            "title": "Turkish",
+            "subtitle": "Shows Turkish cheatsheet",
+            "match": "14 Turkish",
+            "arg": 14,
+            "icon": {
+                "path": "~/dashboard/public/icons8-turkey.png"
+            }
+        }
+    ]
+}

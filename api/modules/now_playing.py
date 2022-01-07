@@ -43,8 +43,8 @@ async def run_yeelight_color_change( color_tuple ):
 async def handle_plex( request: Request ) -> HTTPResponse:
     payload = DotMap( ujson.loads( request.form['payload'][0] ) )
 
-    # if payload.event != 'media.play':
-    #     return empty()
+    if payload.event == 'media.rate':
+        return empty()
 
     # if "plexamp" not in payload.Player.title:
     #     return empty()

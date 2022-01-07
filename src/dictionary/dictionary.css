@@ -1,0 +1,32 @@
+.dictionary-container {
+    padding: 15px !important;
+}
+
+.dictionary-flag {
+    border     : solid 2px white;
+    margin-left: 30px;
+    margin-top : 5px;
+    position   : absolute !important;
+    width      : 80px !important;
+    height     : 80px !important;
+    z-index    : -1;
+    filter     : opacity(50%) brightness(50%);
+}
+
+.dictionary-word {
+    font-size      : 40px !important;
+    text-align     : center !important;
+    word-wrap      : break-word !important;
+    display        : flex !important;
+    flex-direction : column !important;
+    justify-content: center !important;
+    letter-spacing : 2px;
+}
+
+.dictionary-definition {
+    vertical-align: middle !important;
+    font-size     : 30px !important;
+    text-align    : left !important;
+    font-family   : 'Noto Sans';
+    letter-spacing: 1px;
+}

@@ -1,97 +1,24 @@
 import './index.css';
 import config                                       from "./config.json"
+import WebSocketHelper                              from './common/websocket_helper.js';
+import tab_mappings                                 from './tabs.js'
 import moment                                       from 'moment';
 import React                                        from 'react';
 import { connect }                                  from 'react-redux'
+import Timer                                        from 'tiny-timer'
 import SwipeableViews                               from 'react-swipeable-views';
-import {Fab, Tabs, Tab, Box, Avatar, Typography}    from '@mui/material';
-import { set_tab, set_brightness,
-         change_tab, update_current_time } from './store/slices/dashboard_slice.js'
-
-import DeviceStatusPanel             from './device-status/main.js'
-import TimePanel                     from './time/main.js'
-import MusicPanel                    from './music/main.js'
-import SchedulePanel                 from './schedule/main.js'
-import TwitchPanel                   from './twitch/main.js'
-import GamePanel                     from './game/main.js'
-
-import SportsEsportsIcon             from '@mui/icons-material/SportsEsports';
-import DevicesIcon                   from '@mui/icons-material/Devices';
-import MusicNoteIcon                 from '@mui/icons-material/MusicNote';
-import EventAvailableIcon            from '@mui/icons-material/EventAvailable';
-import AccessTimeIcon                from '@mui/icons-material/AccessTime';
-import RefreshIcon                   from '@mui/icons-material/Refresh';
-import LiveTvIcon                    from '@mui/icons-material/LiveTv';
-
-import WebSocketHelper               from './common/websocket_helper.js';
-import CzechPanel                    from './cheatsheet/czech.js'
-import HebrewPanel                   from './cheatsheet/hebrew.js'
-import SwahiliPanel                  from './cheatsheet/swahili.js'
-
+import RefreshIcon                                  from '@mui/icons-material/Refresh';
+import {Fab, Tabs, Tab, Box, Typography, Snackbar } from '@mui/material';
+import { set_tab, set_brightness, change_tab,
+         update_current_time, close_snackbar }      from './store/slices/dashboard_slice.js'
 
 class Dashboard extends React.Component {
     constructor( props ){
         super( props );
         this.ws_helper = new WebSocketHelper( config.dashboard.websocket.url, config.dashboard.websocket.poll_interval );
-
-        this.tabs = [
-            {
-                icon : <AccessTimeIcon/>,
-                panel: <TimePanel/>
-            },
-            {
-                icon : <DevicesIcon/>,
-                panel: <DeviceStatusPanel/>,
-            },
-            {
-                icon : <MusicNoteIcon/>,
-                panel: <MusicPanel/>
-            },
-            {
-                icon : <SportsEsportsIcon/>,
-                panel: <GamePanel width={1200}/>
-            },
-            {
-                icon : <EventAvailableIcon/>,
-                panel: <SchedulePanel/>
-            },
-            {
-                icon : <LiveTvIcon/>,
-                panel: <TwitchPanel/>
-            },
-            {
-                icon: <Avatar className="tabs-avatar" src="icons8-czech_republic.png"/>,
-                panel: <CzechPanel/>
-            },
-            {
-                icon: <Avatar className="tabs-avatar" src="icons8-israel.png"/>,
-                panel: <HebrewPanel/>
-            },
-            {
-                icon: <Avatar className="tabs-avatar" src="icons8-russian_federation.png"/>,
-                panel: <div/>
-            },
-            {
-                icon: <Avatar className="tabs-avatar" src="icons8-south_korea.png"/>,
-                panel: <div/>
-            },
-            {
-                icon: <Avatar className="tabs-avatar" src="icons8-sweden.png"/>,
-                panel: <div/>
-            },
-            {
-                icon: <Avatar className="tabs-avatar" src="icons8-tanzania.png"/>,
-                panel: <SwahiliPanel/>
-            },
-            {
-                icon: <Avatar className="tabs-avatar" src="icons8-turkey.png"/>,
-                panel: <div/>
-            },
-        ];
-
-
-        this.timer_ID = null;
+        this.timer     = new Timer();
     }
+
 
     componentDidMount() {
         this.ws_helper.onMessage = (event) => {
@@ -105,15 +32,13 @@ class Dashboard extends React.Component {
             }
         };
         this.ws_helper.start();
-        this.timer_ID = setInterval( () => this.tick(), 1000 );
+
+        this.timer.on( 'tick', (ms) => this.props.dispatch( update_current_time() ) );
+        this.timer.start({ interval: 1000, stopwatch: false })
     }
 
     componentWillUnmount() {
-        clearInterval( this.timer_ID );
-    }
-
-    tick() {
-        this.props.dispatch( update_current_time( moment().toISOString() ) );
+        this.timer.stop();
     }
 
     onTabSelected = ( event, index ) => {
@@ -129,37 +54,51 @@ class Dashboard extends React.Component {
         window.location.reload();
     }
 
+    closeSnackBar = (event) => {
+        this.props.dispatch( close_snackbar() );
+    }
+
     render() {
-        const { selected_tab, brightness, current_time } = this.props;
+        const { selected_tab, current_time, snackbar_messages } = this.props;
         const local_utc_offset = moment( current_time ).utcOffset( config.time.local.utc * 60 );
 
         return (
             <Box id="dashboard" className="dashboard" sx={{ flexGrow: 1, display: 'flex' }}>
-                <div id="background-image" class="background-image"></div>
+                <Box className={snackbar_messages.length ? "border-pulsate" : "border"}/>
+                <div id="background-image" className="background-image"></div>
                 <Tabs   orientation = "vertical"
                         variant     = "scrollable"
                         value       = {selected_tab}
                         onChange    = {this.onTabSelected}
                         className   = "tabs" >
                     {
-                        this.tabs.map( (item, index) => (
-                            <Tab className="tab-item" index={index} icon={item.icon}/>
+                        tab_mappings.map( (item, index) => (
+                            <Tab className="tab-item" key={index} index={index} icon={item.icon}/>
                         ))
                     }
                 </Tabs>
 
 
-                <SwipeableViews index={selected_tab} onChangeIndex={this.onChangeIndex}>
-                    {this.tabs.map( (item, index) => ( item.panel ))}
+                <SwipeableViews className="swipeableView" index={selected_tab} onChangeIndex={this.onChangeIndex}>
+                    {tab_mappings.map( (item, index) => ( item.panel ))}
                 </SwipeableViews>
 
                 <Typography className="mini-clock">
                     {local_utc_offset.format( 'HH:mm' )}
                 </Typography>
-                <Fab sx={{ width: '40px', height: '40px', position: 'fixed', right: '1.5%', bottom: '5%' }}>
+                <Fab className="refresh-button">
                     <RefreshIcon onClick={this.refreshPage}/>
                 </Fab>
-
+                <Snackbar
+                    open                = {snackbar_messages.length > 0}
+                    key                 = {snackbar_messages.length ? snackbar_messages[0].key : undefined}
+                    autoHideDuration    = {2000}
+                    anchorOrigin        = {{ vertical: 'top', horizontal: 'right' }}
+                    onClose             = {this.closeSnackBar}>
+                    <Typography className="snackbar">
+                        {snackbar_messages.length ? snackbar_messages[0].message : undefined}
+                    </Typography>
+                </Snackbar>
             </Box>
         );
     }
@@ -167,9 +106,10 @@ class Dashboard extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        selected_tab: state.dashboard.selected_tab,
-        brightness  : state.dashboard.brightness,
-        current_time: state.dashboard.current_time,
+        selected_tab     : state.dashboard.selected_tab,
+        brightness       : state.dashboard.brightness,
+        current_time     : state.dashboard.current_time,
+        snackbar_messages : state.dashboard.snackbar_messages,
     }
 }
 

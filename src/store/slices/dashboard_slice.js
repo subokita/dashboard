@@ -7,9 +7,10 @@ export const dashboard_slice = createSlice({
     name        : 'dashboard',
 
     initialState: {
-        selected_tab: 0,
-        brightness  : 100.0,
-        current_time: moment().toISOString()
+        selected_tab     : 0,
+        brightness       : 100.0,
+        current_time     : moment().toISOString(),
+        snackbar_messages: [],
     },
 
     reducers    : {
@@ -22,14 +23,29 @@ export const dashboard_slice = createSlice({
         },
 
         update_current_time: (state, action) => {
-            state.current_time = action.payload
+            state.current_time = moment().toISOString()
         },
 
         set_brightness: ( state, action ) => {
             state.brightness = action.payload
-        }
+        },
+
+        close_snackbar: (state) => {
+            state.snackbar_messages = state.snackbar_messages.slice(1);
+        },
+
+        notify: ( state, action ) => {
+            state.snackbar_messages = [
+                ...state.snackbar_messages,
+                {
+                    key    : moment().toISOString(),
+                    message: action.payload
+                }
+            ];
+        },
     }
 })
 
-export const { change_tab, set_tab, update_current_time, set_brightness } = dashboard_slice.actions
+export const { change_tab, set_tab, update_current_time,
+               set_brightness, close_snackbar, notify } = dashboard_slice.actions
 export default dashboard_slice.reducer

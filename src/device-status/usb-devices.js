@@ -1,9 +1,9 @@
 import "../index.css"
 import "./device-status.css"
-import React         from 'react';
-import { Box, Grid } from '@mui/material';
-import config        from "../config.json"
-
+import React            from 'react';
+import { Box, Grid }    from '@mui/material';
+import config           from "../config.json"
+import { out_of_range } from '../common/utils.js'
 
 class USBDevices extends React.Component {
 
@@ -28,12 +28,15 @@ class USBDevices extends React.Component {
     }
 
     render() {
-        const { selected_tab } = this.props;
+        const { index, selected_tab, width } = this.props;
+
+        if ( out_of_range( index, selected_tab ) )
+            return (<Box sx={{ width: Number( width ), overflow: 'hidden' }}/>)
 
         return (
-            <Box sx={{ width: Number( this.props.width ) }}>
+            <Box sx={{ width: Number( width ) }}>
                 <Grid container spacing={0} className="round-container" height={360}>
-                    <Grid container spacing={0} className={ selected_tab === 1 ? "device-status-usb" : ""}>
+                    <Grid container spacing={0} className="device-status-usb">
                         {
                             config.usb.list.map( (item, index) => (
                                 this.renderItem( item, index )

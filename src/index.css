@@ -33,21 +33,21 @@ body {
 }
 
 .border-pulsate {
-    position        : absolute;
-    top             : 5px;
-    left            : 5px;
-    right           : 5px;
-    bottom          : 5px;
-    padding         : 0px !important;
-    margin          : 0px !important;
-    border          :  none;
-    border-radius   : 15px;
-    animation       : pulsate 500ms ease-in-out 4;
+    position : absolute;
+    top      : 5px;
+    left     : 5px;
+    right    : 5px;
+    bottom   : 5px;
+    padding  : 0px !important;
+    margin   : 0px !important;
+    border   :  none;
+    animation: pulsate 500ms ease-in-out 4;
+    z-index  : 1;
 }
 
 @keyframes pulsate {
     0%    { border: none; }
-    100%  { border: solid 10px #0f74c6; }
+    100%  { border: solid 15px #0f74c6; }
 }
 
 .swipeableView {
@@ -75,11 +75,12 @@ body {
 
 .tabs {
     /*border-right: solid 1px #666;*/
-    position        : absolute !important;
-    width           : 60px !important;
-    height          : 440px;
-    margin-top      : -40px;
-    z-index         : 2;
+    position  : absolute !important;
+    width     : 60px !important;
+    height    : 440px;
+    margin-top: -40px;
+    z-index   : 2;
+    overflow  : hidden !important;
 }
 
 .tabs-avatar{
@@ -150,4 +151,11 @@ body {
     border-radius   : 20px !important;
     padding         : 10px !important;
     width           : 250px !important;
+}
+
+.vpn {
+    width : 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-right: 5px;
 }

@@ -10,13 +10,15 @@ import SwipeableViews                               from 'react-swipeable-views'
 import RefreshIcon                                  from '@mui/icons-material/Refresh';
 import {Fab, Tabs, Tab, Box, Typography, Snackbar } from '@mui/material';
 import { set_tab, set_brightness, change_tab,
-         update_current_time, close_snackbar }      from './store/slices/dashboard_slice.js'
+         update_current_time, close_snackbar,
+         notify, set_vpn_status }                   from './store/slices/dashboard_slice.js'
 
 class Dashboard extends React.Component {
     constructor( props ){
         super( props );
-        this.ws_helper = new WebSocketHelper( config.dashboard.websocket.url, config.dashboard.websocket.poll_interval );
-        this.timer     = new Timer();
+        this.ws_helper     = new WebSocketHelper( config.dashboard.websocket.url, config.dashboard.websocket.poll_interval );
+        this.vpn_ws_helper = new WebSocketHelper( config.vpn.websocket.url, config.vpn.websocket.poll_interval );
+        this.timer         = new Timer();
     }
 
 
@@ -33,7 +35,25 @@ class Dashboard extends React.Component {
         };
         this.ws_helper.start();
 
-        this.timer.on( 'tick', (ms) => this.props.dispatch( update_current_time() ) );
+
+
+        this.vpn_ws_helper.onMessage = (event) => {
+            this.props.dispatch( set_vpn_status( event.data ) );
+        };
+        this.vpn_ws_helper.start();
+
+
+
+        this.timer.on( 'tick', (ms) => {
+            this.props.dispatch( update_current_time() );
+
+            const local_time = moment( this.props.current_time ).utcOffset( config.time.local.utc * 60 );
+            Object.entries( config.alarms ).forEach( ([alarm_name, alarm], index) => {
+                if ( local_time.isSame( moment( alarm, 'HH:mm' ), 'second' ))
+                    this.props.dispatch( notify( ['⏰', alarm_name] ) )
+            });
+        });
+
         this.timer.start({ interval: 1000, stopwatch: false })
     }
 
@@ -59,13 +79,17 @@ class Dashboard extends React.Component {
     }
 
     render() {
-        const { selected_tab, current_time, snackbar_messages } = this.props;
+        const { selected_tab, current_time, snackbar_messages, vpn_status } = this.props;
         const local_utc_offset = moment( current_time ).utcOffset( config.time.local.utc * 60 );
+
+        // if ( local_utc_offset.minutes() % 10 === 0 && local_utc_offset.seconds() === 0 ) {
+        //     return <Box id="dashboard" className="dashboard" sx={{ flexGrow: 1, display: 'flex' }}/> ;
+        // }
 
         return (
             <Box id="dashboard" className="dashboard" sx={{ flexGrow: 1, display: 'flex' }}>
                 <Box className={snackbar_messages.length ? "border-pulsate" : "border"}/>
-                <div id="background-image" className="background-image"></div>
+                <div id="background-image" className="background-image"/>
                 <Tabs   orientation = "vertical"
                         variant     = "scrollable"
                         value       = {selected_tab}
@@ -78,13 +102,13 @@ class Dashboard extends React.Component {
                     }
                 </Tabs>
 
-
                 <SwipeableViews className="swipeableView" index={selected_tab} onChangeIndex={this.onChangeIndex}>
                     {tab_mappings.map( (item, index) => ( item.panel ))}
                 </SwipeableViews>
 
                 <Typography className="mini-clock">
-                    {local_utc_offset.format( 'HH:mm' )}
+                    {vpn_status ? <img className="vpn" src="icons8-cloud_done.png"/> : <img className="vpn" src="icons8-cloud_cross.png"/>}
+                    {local_utc_offset.format( ' ddd DD/MM HH:mm' )}
                 </Typography>
                 <Fab className="refresh-button">
                     <RefreshIcon onClick={this.refreshPage}/>
@@ -109,7 +133,8 @@ const mapStateToProps = state => {
         selected_tab     : state.dashboard.selected_tab,
         brightness       : state.dashboard.brightness,
         current_time     : state.dashboard.current_time,
-        snackbar_messages : state.dashboard.snackbar_messages,
+        vpn_status       : state.dashboard.vpn_status,
+        snackbar_messages: state.dashboard.snackbar_messages,
     }
 }
 

@@ -5,7 +5,7 @@ export const device_status_slice = createSlice({
     initialState: {
         language         : 'english',
         space            : 'web',
-        connected_devices: []
+        connected_devices: [],
     },
 
     reducers    : {
@@ -25,7 +25,7 @@ export const device_status_slice = createSlice({
 
         set_connected_devices: (state, action) => {
             state.connected_devices = action.payload
-        }
+        },
     }
 })
 

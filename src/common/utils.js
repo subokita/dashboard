@@ -23,7 +23,7 @@ class Logger {
 }
 
 
-export const out_of_range = ( index, current ) => (
+export const out_of_range = ( index: int, current: int ) => (
     index < current - 1 || index > current + 1
 );
 

@@ -7,13 +7,24 @@ from managers.config_manager import config
 
 class PlexManager( object ):
 
-    def __init__( self, server, client, access_token ):
+    def __init__( self, server: str, client: str, access_token: str ):
         super( PlexManager, self ).__init__()
 
-        self._plex        = PlexServer( server, access_token )
-        self._client_name = client
+        # self._plex        = PlexServer( server, access_token )
+        self._plex         = None
+        self._server       = server
+        self._access_token = access_token
+        self._client_name  = client
+
         # self._client = next( filter( lambda avail_client: client in avail_client.title, self._plex.clients() ) )
         return
+
+    @property
+    def plex( self ):
+        if self._plex is None:
+            self._plex = PlexServer( self._server, self._access_token )
+        return self._plex
+
 
 
     @property

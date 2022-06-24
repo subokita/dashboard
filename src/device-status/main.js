@@ -35,10 +35,10 @@ class DeviceStatusPanel extends React.Component {
         //     this.ws_helper.pause();
 
         if ( this.props.language !== prevProps.language )
-            this.props.dispatch( notify( `💬 ${this.props.language.replace(/^\w/, c => c.toUpperCase())}` ) )
+            this.props.dispatch( notify( ['💬', this.props.language] ) )
 
         if ( this.props.space !== prevProps.space )
-            this.props.dispatch( notify( `🖥 ${this.props.space.replace(/^\w/, c => c.toUpperCase())}` ) )
+            this.props.dispatch( notify( ['🖥', this.props.space] ) )
     }
 
 

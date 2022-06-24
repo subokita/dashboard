@@ -1,0 +1,16 @@
+.midi_commander-container {
+    display        : flex !important;
+    justify-content: center !important;
+}
+
+.midi_commander-exp_pedal {
+    width     :  250px !important;
+    height    :  20px !important;
+    transform : rotate(-90deg);
+    margin-top: 30px;
+}
+
+.midi_commander-exp_pedal_value {
+    font-family: "Noto Sans Mono";
+    font-size: 30px;
+}

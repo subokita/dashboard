@@ -35,7 +35,7 @@ async def info( request: Request, ws ):
 
 async def run_yeelight_color_change( color_tuple ):
     rgb = '{:02X}{:02X}{:02X}'.format(*color_tuple)
-    call( ['observe.sh', rgb], cwd = config.yeelight_plex.cwd )
+    call( ['./observe.sh', rgb], cwd = config.yeelight_plex.cwd )
     return
 
 

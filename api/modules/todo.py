@@ -4,6 +4,8 @@
 import os
 import ujson
 from sanic                  import Blueprint
+from sanic.request          import Request
+from sanic.response         import HTTPResponse, empty
 from managers.todos_manager import todos
 
 todo = Blueprint( "todo" )
@@ -28,3 +30,10 @@ async def get_today_habits( request, ws ):
         received = await ws.recv()
         continue
     return
+
+
+
+@todo.put( "/clear_incomplete_habits" )
+async def clear_incomplete_habits( request: Request )  -> HTTPResponse:
+    todos.clear_incomplete_habits()
+    return empty()

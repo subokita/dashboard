@@ -11,7 +11,7 @@
 
 .twitch-events {
     height: 150px;
-    width : 500px;
+    width : 600px;
     border: none;
 }
 
@@ -22,12 +22,12 @@
 }
 
 .twitch-status-on {
-    color:  #0f0;
+    color:  #0a0;
 }
 
 
 .twitch-status-off {
-    color:  #f00;
+    color:  #a00;
 }
 
 .twitch-scene {
@@ -40,13 +40,20 @@
 }
 
 .twitch-scene-streaming {
-    background-color: #0f0 !important;
+    background-color: #0a0 !important;
     color           : #000 !important;
     border-radius   : 15px !important;
 }
 
 .twitch-scene-break {
-    background-color: #ff0 !important;
+    background-color: #aa0 !important;
     color           : #000 !important;
     border-radius   : 15px !important;
+}
+
+.twitch-scene-others {
+    background-color: #a00 !important;
+    color           : #000 !important;
+    border-radius   : 15px !important;
+
 }

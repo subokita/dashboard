@@ -11,6 +11,7 @@ export const dashboard_slice = createSlice({
         brightness       : 100.0,
         current_time     : moment().toISOString(),
         snackbar_messages: [],
+        vpn_status       : false,
     },
 
     reducers    : {
@@ -35,17 +36,23 @@ export const dashboard_slice = createSlice({
         },
 
         notify: ( state, action ) => {
+            const data = action.payload
+
             state.snackbar_messages = [
                 ...state.snackbar_messages,
                 {
                     key    : moment().toISOString(),
-                    message: action.payload
+                    message: `${data[0]} ${data[1].replace(/^\w/, c => c.toUpperCase())}`
                 }
             ];
+        },
+
+        set_vpn_status: ( state, action ) => {
+            state.vpn_status = action.payload.trim().toLowerCase() === 'true';
         },
     }
 })
 
 export const { change_tab, set_tab, update_current_time,
-               set_brightness, close_snackbar, notify } = dashboard_slice.actions
+               set_brightness, close_snackbar, notify, set_vpn_status } = dashboard_slice.actions
 export default dashboard_slice.reducer

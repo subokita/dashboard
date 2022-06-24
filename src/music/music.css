@@ -84,3 +84,32 @@
     font-family   : 'Noto Sans';
     text-shadow   : 1px 1px 10px #000, -1px 1px 10px #000, 1px -1px 10px #000, -1px -1px 10px #000 !important;
 }
+
+
+
+
+
+.mini-music-artist {
+    font-size     : 96px;
+    font-weight   : 600;
+    border-radius : 25px !important;
+    color         : black !important;
+    letter-spacing: 3px;
+    font-family   : 'Noto Sans';
+    padding       : 5px;
+    margin-bottom : 10px;
+    background    : rgba( 255, 255, 255, 0.5 ) !important;
+}
+
+.mini-music-title {
+    color         : white !important;
+    font-size     : 96px;
+    font-weight   : 700;
+    letter-spacing: 3px;
+    font-family   : 'Noto Sans';
+    text-shadow   : 1px 1px 10px #000, -1px 1px 10px #000, 1px -1px 10px #000, -1px -1px 10px #000 !important;
+}
+
+.marquee {
+    text-indent: 100px !important;
+}

@@ -5,6 +5,7 @@ import os
 import ujson
 from sanic                  import Blueprint
 from managers.redis_manager import redis_manager
+from subprocess             import check_output
 
 device_status = Blueprint( "device_status" )
 
@@ -23,3 +24,16 @@ async def get_device_status( request, ws ):
         await ws.recv()
         continue
     return
+
+
+
+@device_status.websocket( "/vpn" )
+async def get_vpn_status( request, ws ):
+    while True:
+        output = '(Connected)' in check_output( "scutil --nc list".split( ' ' ) ).decode( 'utf-8' )
+        message = str(output)
+        await ws.send( message )
+        await ws.recv()
+        continue
+    return
+

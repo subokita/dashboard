@@ -7,8 +7,9 @@ import config       from "../config.json"
 import OBSWebSocket from 'obs-websocket-js';
 import React        from 'react';
 import { Grid }     from '@mui/material';
-import { set_heartbeat_state, set_boya_lavalier_mic,
-         set_elgato_hd_60s, set_blackhole, set_current_scene } from '../store/slices/twitch_slice.js'
+import { set_heartbeat_state, set_at2020v_mic, set_boya_lavalier_mic,
+         set_elgato_hd_60s, set_blackhole,
+         set_current_scene, disconnect } from '../store/slices/twitch_slice.js'
 import { out_of_range }     from '../common/utils.js'
 
 class TwitchPanel extends React.Component {
@@ -17,44 +18,54 @@ class TwitchPanel extends React.Component {
         this.obs = new OBSWebSocket();
     }
 
-    componentDidMount() {
-        this.obs.connect({address: config.twitch.obs.websocket.url})
-                .then(() => {
-                    console.log(`Success! We're connected & authenticated.`);
-                    return this.obs.send('GetCurrentScene');
-                 })
-                .then( (data) => {
-                    this.props.dispatch( set_current_scene( data.name ));
-                })
-                .catch( (err) => {
-                    console.log(err);
-                });
 
+    componentDidUpdate( prevProps ) {
+        if ( this.props.selected_tab === this.props.index ) {
+            this.connect();
+        }
+        else {
+            this.obs.disconnect();
+            this.props.dispatch( disconnect() );
+        }
+    }
 
-        this.obs.on('SwitchScenes', data => {
-            this.props.dispatch( set_current_scene( data.sceneName ));
-        })
+    async connect() {
+        const { dispatch } = this.props;
 
-        this.obs.on( 'StreamStatus', data => {
-            this.props.dispatch( set_heartbeat_state( data ) );
+        try{
+            await this.obs.connect({address: config.twitch.obs.websocket.url});
 
-            this.obs.send( 'GetVolume', { source: '01 Boya Lavalier Mic' } )
-                    .then( (data) => {
-                        this.props.dispatch( set_boya_lavalier_mic( !data.muted ) );
-                    })
-            this.obs.send( 'GetVolume', { source: '02 Elgato HD 60S+' } )
-                    .then( (data) => {
-                        this.props.dispatch( set_elgato_hd_60s( !data.muted ) );
-                    })
-            this.obs.send( 'GetVolume', { source: '03 Blackhole 2ch' } )
-                    .then( (data) => {
-                        this.props.dispatch( set_blackhole( !data.muted ) );
-                    })
-        })
+            this.obs.on('error', err => {
+                console.error('socket error:', err);
+                dispatch( disconnect() );
+            });
 
-        this.obs.on('error', err => {
+            this.obs.on( 'SwitchScenes', data => dispatch( set_current_scene( data.sceneName )) );
+            this.obs.on( 'StreamStatus', data => dispatch( set_heartbeat_state( data ) ) );
+
+            this.obs.on( 'SourceMuteStateChanged', data => {
+                switch( data.sourceName ) {
+                    case 'AT2020V Mic'        : dispatch( set_at2020v_mic      ( !data.muted ) ); break;
+                    // case 'Boya Lavalier Mic'  : dispatch( set_boya_lavalier_mic( !data.muted ) ); break;
+                    case 'Blackhole 16ch'     : dispatch( set_blackhole        ( !data.muted ) ); break;
+                    case 'Elgato HD60S+ Audio': dispatch( set_elgato_hd_60s    ( !data.muted ) ); break;
+                    default: break;
+                }
+            })
+
+            let data = await this.obs.send('GetCurrentScene');
+            dispatch( set_current_scene( data.name ));
+
+            this.obs.send( 'GetMute', { source: 'AT2020V Mic'         } ).then( data => dispatch( set_at2020v_mic      ( !data.muted ) ) );
+            // this.obs.send( 'GetMute', { source: 'Boya Lavalier Mic'   } ).then( data => dispatch( set_boya_lavalier_mic( !data.muted ) ) );
+            this.obs.send( 'GetMute', { source: 'Blackhole 16ch'      } ).then( data => dispatch( set_blackhole        ( !data.muted ) ) );
+            this.obs.send( 'GetMute', { source: 'Elgato HD60S+ Audio' } ).then( data => dispatch( set_elgato_hd_60s    ( !data.muted ) ) );
+
+        }
+        catch ( err ) {
             console.error('socket error:', err);
-        });
+            dispatch( disconnect() );
+        }
     }
 
     componentWillUnmount() {
@@ -77,16 +88,17 @@ class TwitchPanel extends React.Component {
     renderCurrentScene( current_scene ) {
         switch( current_scene ) {
             case 'Game Streaming':
+            case 'Just Chatting':
                 return <Grid item xs={12} className="twitch-scene twitch-scene-streaming">{current_scene}</Grid>
             case 'Break':
                 return <Grid item xs={12} className="twitch-scene twitch-scene-break">{current_scene}</Grid>
             default:
-                return <Grid item xs={12} className="twitch-scene">{current_scene}</Grid>
+                return <Grid item xs={12} className="twitch-scene twitch-scene-others">{current_scene}</Grid>
         }
     }
 
     render() {
-        const { streaming, boya_lavalier_mic, elgato_hd_60s, blackhole,
+        const { streaming, at2020v_mic, boya_lavalier_mic, elgato_hd_60s, blackhole,
                 total_stream_time, cpu_usage, fps, num_dropped_frames,
                 num_total_frames, render_missed_frames, render_total_frames,
                 strain, current_scene, selected_tab, index } = this.props;
@@ -109,7 +121,7 @@ class TwitchPanel extends React.Component {
                             <Grid className="round-container" container spacing={0.2}>
                                 {this.renderCurrentScene( current_scene )}
                                 {this.renderItem( 'Streaming', streaming ) }
-                                {this.renderItem( 'Boya Lavalier Mic', boya_lavalier_mic ) }
+                                {this.renderItem( 'AT2020V Mic', at2020v_mic ) }
                                 {this.renderItem( 'Elgato HD 60S+', elgato_hd_60s ) }
                                 {this.renderItem( 'Blackhole', blackhole ) }
 
@@ -120,7 +132,7 @@ class TwitchPanel extends React.Component {
                                 <Grid item xs={7}>Elapsed</Grid>        <Grid item xs={5}>{moment.utc(total_stream_time*1000).format('HH:mm:ss')}</Grid>
                                 <Grid item xs={7}>CPU</Grid>            <Grid item xs={5}>{cpu_usage} %</Grid>
                                 <Grid item xs={7}>FPS</Grid>            <Grid item xs={5}>{fps}</Grid>
-                                <Grid item xs={7}>Dropped frames</Grid> <Grid item xs={5}>{num_dropped_frames * 100.0 / num_total_frames}</Grid>
+                                <Grid item xs={7}>Dropped frames</Grid> <Grid item xs={5}>{(num_dropped_frames * 100.0 / num_total_frames).toFixed(2)}</Grid>
                                 <Grid item xs={7}>Missed frames</Grid>  <Grid item xs={5}>{(render_missed_frames * 100.0 / render_total_frames).toFixed(2)}</Grid>
                                 <Grid item xs={7}>Strain</Grid>         <Grid item xs={5}>{strain}</Grid>
 
@@ -142,6 +154,7 @@ const mapStateToProps = state => {
         selected_tab         : state.dashboard.selected_tab,
         average_frame_time   : state.twitch.average_frame_time,
         blackhole            : state.twitch.blackhole,
+        at2020v_mic          : state.twitch.at2020v_mic,
         boya_lavalier_mic    : state.twitch.boya_lavalier_mic,
         bytes_per_sec        : state.twitch.bytes_per_sec,
         cpu_usage            : state.twitch.cpu_usage,

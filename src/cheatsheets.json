@@ -1,0 +1,146 @@
+{
+    "items":
+    [
+        {
+            "uid": "blender",
+            "title": "Blender",
+            "subtitle": "Shows Blender's shortcut",
+            "match": "Blender",
+            "arg": "blender",
+            "icon": {
+                "path": "~/dashboard/public/icons8-blender_3d.png"
+            }
+        },
+        {
+            "uid": "cura",
+            "title": "Ultimaker Cura",
+            "subtitle": "Shows Ultimaker Cura's shortcut",
+            "match": "Ultimaker Cura",
+            "arg": "cura",
+            "icon": {
+                "path": "~/dashboard/public/ultimaker_cura.png"
+            }
+        },
+        {
+            "uid": "pixelmator",
+            "title": "Pixelmator",
+            "subtitle": "Shows Pixelmator shortcuts",
+            "match": "Pixelmator",
+            "arg": "pixelmator",
+            "icon": {
+                "path": "~/dashboard/public/pixelmator.png"
+            }
+        },
+        {
+            "uid": "rubiks",
+            "title": "Rubik's Cube",
+            "subtitle": "Shows Rubik's Cube algorithm",
+            "match": "Rubik's Cube",
+            "arg": "rubiks",
+            "icon": {
+                "path": "~/dashboard/public/icons8-rubik's_cube.png"
+            }
+        },
+        {
+            "uid": "solvespace",
+            "title": "Solve Space",
+            "subtitle": "Shows Solve Space keyboard shortcuts",
+            "match": "Solve Space",
+            "arg": "solvespace",
+            "icon": {
+                "path": "~/dashboard/public/solvespace.png"
+            }
+        },
+
+        {
+            "uid": "stenography",
+            "title": "Stenography",
+            "subtitle": "Shows Stenography keyboard layout",
+            "match": "Stenography Plover",
+            "arg": "stenography",
+            "icon": {
+                "path": "~/dashboard/public/plover.png"
+            }
+        },
+        {
+            "uid": "scummvm",
+            "title": "ScummVM",
+            "subtitle": "Shows Scumm VM keyboard shortcuts",
+            "match": "ScummVM",
+            "arg": "scummvm",
+            "icon": {
+                "path": "~/dashboard/public/scummvm.png"
+            }
+        },
+        {
+            "uid": "czech",
+            "title": "Czech",
+            "subtitle": "Shows Czech cheatsheet",
+            "match": "Czech",
+            "arg": "czech",
+            "icon": {
+                "path": "~/dashboard/public/icons8-czech_republic.png"
+            }
+        },
+        {
+            "uid": "hebrew",
+            "title": "Hebrew",
+            "subtitle": "Shows Hebrew cheatsheet",
+            "match": "Hebrew",
+            "arg": "hebrew",
+            "icon": {
+                "path": "~/dashboard/public/icons8-israel.png"
+            }
+        },
+        {
+            "uid": "russian",
+            "title": "Russian",
+            "subtitle": "Shows Russian cheatsheet",
+            "match": "Russian",
+            "arg": "russian",
+            "icon": {
+                "path": "~/dashboard/public/icons8-russian_federation.png"
+            }
+        },
+        {
+            "uid": "korean",
+            "title": "Korean",
+            "subtitle": "Shows Korean cheatsheet",
+            "match": "Korean",
+            "arg": "korean",
+            "icon": {
+                "path": "~/dashboard/public/icons8-south_korea.png"
+            }
+        },
+        {
+            "uid": "swedish",
+            "title": "Swedish",
+            "subtitle": "Shows Swedish cheatsheet",
+            "match": "Swedish",
+            "arg": "swedish",
+            "icon": {
+                "path": "~/dashboard/public/icons8-sweden.png"
+            }
+        },
+        {
+            "uid": "swahili",
+            "title": "Swahili",
+            "subtitle": "Shows Swahili cheatsheet",
+            "match": "Swahili",
+            "arg": "swahili",
+            "icon": {
+                "path": "~/dashboard/public/icons8-tanzania.png"
+            }
+        },
+        {
+            "uid": "turkish",
+            "title": "Turkish",
+            "subtitle": "Shows Turkish cheatsheet",
+            "match": "Turkish",
+            "arg": "turkish",
+            "icon": {
+                "path": "~/dashboard/public/icons8-turkey.png"
+            }
+        }
+    ]
+}

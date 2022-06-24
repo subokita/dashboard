@@ -19,6 +19,22 @@ async def list_all_connected_usb_devices():
 
 
 
+async def list_all_connected_bluetooth_devices():
+    output    = check_output( "system_profiler SPBluetoothDataType -json".split( ' ' ) ).decode( 'utf-8' )
+    devices   = ujson.loads( output )['SPBluetoothDataType'][0]['devices_list']
+    connected = []
+
+    for item in devices:
+        key = list(item.keys())[0]
+        if 'device_connected' in item[key]:
+            connected.append( item[key]['device_productID'] )
+            pass
+        continue
+
+    return set(connected)
+
+
+
 @usb_devices.websocket( "/" )
 async def get_usb_devices( request, ws ):
     while True:

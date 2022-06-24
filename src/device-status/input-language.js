@@ -7,15 +7,15 @@ import config           from "../config.json"
 import { connect }      from 'react-redux'
 
 class InputLanguage extends React.Component {
-    shouldComponentUpdate( next_props, next_state ) {
+    shouldComponentUpdate = ( next_props, next_state ) => {
         return this.props.selected !== next_props.selected;
     }
 
-    triggerKeyboardMaestro = ( language, macro ) => ( event ) => {
+    triggerKeyboardMaestro = ( language: str, macro: str ) => ( event ) => {
         axios.get ( `${config.keyboard_maestro.server}/action.html?macro=${macro}&value=` )
     }
 
-    renderLanguage( language, macro ) {
+    renderLanguage( language: str, macro: str ) {
         const { selected } = this.props;
         const xs = language === 'english' ? 12 : 4;
 

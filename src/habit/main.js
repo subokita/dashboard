@@ -97,7 +97,7 @@ class HabitPanel extends React.Component {
 
         return (
             <Box className="box" sx={{ width: Number( this.props.width ) }}>
-                <Grid container className="habit-container" spacing={1} sx={{ padding: 3 }}>
+                <Grid container className="habit-container" spacing={1} sx={{ padding: 2 }}>
                     <Grid item xs={3}>
                         {this.renderHabit( habits, "💬 Languages")}
                     </Grid>

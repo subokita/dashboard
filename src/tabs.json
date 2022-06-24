@@ -5,7 +5,7 @@
             "uid": "time",
             "title": "Time",
             "subtitle": "Shows current time",
-            "match": "0 time",
+            "match": "0 time clock",
             "arg": 0,
             "icon": {
                 "path": "~/dashboard/public/icons8-clock.png"
@@ -82,73 +82,23 @@
             }
         },
         {
-            "uid": "czech",
-            "title": "Czech",
-            "subtitle": "Shows Czech cheatsheet",
-            "match": "8 Czech",
+            "uid": "midi_commander",
+            "title": "Midi Commander",
+            "subtitle": "Shows Meloaudio Midi Commander's state",
+            "match": "8 Midi Meloaudio",
             "arg": 8,
             "icon": {
-                "path": "~/dashboard/public/icons8-czech_republic.png"
+                "path": "~/dashboard/public/icons8-brake_pedal.png"
             }
         },
         {
-            "uid": "hebrew",
-            "title": "Hebrew",
-            "subtitle": "Shows Hebrew cheatsheet",
-            "match": "9 Hebrew",
+            "uid": "cheat",
+            "title": "Cheatsheet",
+            "subtitle": "Shows cheatsheet",
+            "match": "9 Cheatsheet",
             "arg": 9,
             "icon": {
-                "path": "~/dashboard/public/icons8-israel.png"
-            }
-        },
-        {
-            "uid": "russian",
-            "title": "Russian",
-            "subtitle": "Shows Russian cheatsheet",
-            "match": "10 Russian",
-            "arg": 10,
-            "icon": {
-                "path": "~/dashboard/public/icons8-russian_federation.png"
-            }
-        },
-        {
-            "uid": "korean",
-            "title": "Korean",
-            "subtitle": "Shows Korean cheatsheet",
-            "match": "11 Korean",
-            "arg": 11,
-            "icon": {
-                "path": "~/dashboard/public/icons8-south_korea.png"
-            }
-        },
-        {
-            "uid": "swedish",
-            "title": "Swedish",
-            "subtitle": "Shows Swedish cheatsheet",
-            "match": "12 Swedish",
-            "arg": 12,
-            "icon": {
-                "path": "~/dashboard/public/icons8-sweden.png"
-            }
-        },
-        {
-            "uid": "swahili",
-            "title": "Swahili",
-            "subtitle": "Shows Swahili cheatsheet",
-            "match": "13 Swahili",
-            "arg": 13,
-            "icon": {
-                "path": "~/dashboard/public/icons8-tanzania.png"
-            }
-        },
-        {
-            "uid": "turkish",
-            "title": "Turkish",
-            "subtitle": "Shows Turkish cheatsheet",
-            "match": "14 Turkish",
-            "arg": 14,
-            "icon": {
-                "path": "~/dashboard/public/icons8-turkey.png"
+                "path": "~/dashboard/public/icons8-magazine.png"
             }
         }
     ]

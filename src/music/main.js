@@ -43,8 +43,9 @@ class MusicPanel extends React.Component {
 
 
     renderMarquee( min_len, text ) {
-        if ( text.length > min_len )
+        if ( text.length > min_len ){
             return ( <Marquee gradient={false} speed={30} className="marquee">{text}</Marquee> )
+        }
         return text;
     }
 

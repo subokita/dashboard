@@ -5,6 +5,7 @@ export const twitch_slice = createSlice({
     initialState: {
         average_frame_time   : 0,
         blackhole            : false,
+        at2020v_mic          : false,
         boya_lavalier_mic    : false,
         bytes_per_sec        : 0,
         cpu_usage            : "0",
@@ -28,6 +29,7 @@ export const twitch_slice = createSlice({
     sampleState: {
         average_frame_time   : 13.64812,
         blackhole            : true,
+        at2020v_mic          : false,
         boya_lavalier_mic    : false,
         bytes_per_sec        : 286014,
         cpu_usage            : "3.56",
@@ -67,6 +69,20 @@ export const twitch_slice = createSlice({
             state.strain                = action.payload.strain;
         },
 
+        disconnect: (state, action) => {
+            state.at2020v_mic       = false;
+            state.boya_lavalier_mic = false;
+            state.elgato_hd_60s     = false;
+            state.blackhole         = false;
+            state.current_scene     = "N/A";
+            state.streaming         = false;
+        },
+
+
+        set_at2020v_mic: (state, action) => {
+            state.at2020v_mic = action.payload;
+        },
+
         set_boya_lavalier_mic: (state, action) => {
             state.boya_lavalier_mic = action.payload;
         },
@@ -85,6 +101,7 @@ export const twitch_slice = createSlice({
     }
 })
 
-export const { set_heartbeat_state, set_boya_lavalier_mic,
-               set_elgato_hd_60s, set_blackhole, set_current_scene } = twitch_slice.actions
+export const { set_heartbeat_state, set_at2020v_mic, set_boya_lavalier_mic,
+               set_elgato_hd_60s, set_blackhole,
+               set_current_scene, disconnect } = twitch_slice.actions
 export default twitch_slice.reducer

@@ -4,11 +4,15 @@
 import os
 import things
 import ujson
+from subprocess              import call
+from datetime                import datetime
 from managers.config_manager import config
 
 class TodosManager( object ):
-    def __init__( self, habits ):
+    def __init__( self, auth_token, habits ):
         super( TodosManager, self ).__init__()
+        self._auth_token     = auth_token
+        self._habits_uuid    = habits
         self._habit_headings = self.get_headings( project = habits )
         self._headings       = self.get_headings()
         self._projects       = self.get_projects()
@@ -103,8 +107,20 @@ class TodosManager( object ):
         return result
 
 
-todos = TodosManager( habits = config.todo.habits.uuid  )
+    def clear_incomplete_habits( self ):
+        for x in things.tasks( status = 'incomplete'):
+            if 'heading' in x.keys() and x['heading'] in self._habit_headings.keys():
+                start_date = datetime.fromisoformat( x['start_date'] )
+                if start_date.date() < datetime.today().date():
+                    call( ['open', f"things:///update?auth-token={self._auth_token}&id={x['uuid']}&canceled=true" ] )
+                pass
+            continue
+        return
 
-# todos = TodosManager( habits = 'QMxEjoTs55MM6VfaFttvx3' )
+
+todos = TodosManager( auth_token = config.todo.auth_token, habits = config.todo.habits  )
+
+# todos = TodosManager( auth_token = 'LC6NZm8wTfKze3AU9F-m-g', habits = 'QMxEjoTs55MM6VfaFttvx3' )
 # from pprint import pprint
 # pprint( todos.habits() )
+# todos.clear_incomplete_habits()

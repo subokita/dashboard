@@ -20,6 +20,16 @@ class RedisManager( object ):
 
 
     @property
+    def cheatsheet( self ) -> str:
+        return self._client.get( 'cheatsheet' ).decode( 'utf-8' ).lower()
+
+
+    @cheatsheet.setter
+    def cheatsheet( self, value: str ):
+        self._client.set( 'cheatsheet', value.lower() )
+        return
+
+    @property
     def language( self ) -> str:
         return self._client.get( 'language' ).decode( 'utf-8' ).lower()
 
@@ -72,6 +82,21 @@ class RedisManager( object ):
     def usb_devices( self, product_ids ):
         self._client.delete( 'usb_devices' )
         self._client.sadd( 'usb_devices', *product_ids )
+        return
+
+
+    @property
+    def bluetooth_devices( self ) -> list:
+        return [bluetooth_device.decode( 'utf-8' ) for bluetooth_device in self._client.smembers( 'bluetooth_devices' )]
+
+
+    @bluetooth_devices.setter
+    def bluetooth_devices( self, product_ids ):
+        if len( product_ids ) < 1:
+            return
+
+        self._client.delete( 'bluetooth_devices' )
+        self._client.sadd( 'bluetooth_devices', *product_ids )
         return
 
 
@@ -156,6 +181,29 @@ class RedisManager( object ):
     @translation.setter
     def translation( self, payload ):
         self._client.set( 'translation', ujson.dumps( payload ) )
+
+
+
+    @property
+    def vpn( self ):
+        return self._client.get( 'vpn' ).decode( 'utf-8' )
+
+    @vpn.setter
+    def vpn( self, payload ):
+        self._client.set( 'vpn', ujson.dumps( payload ) )
+
+
+## TODO: maybe update it to show full TS-Midi display
+    @property
+    def exp_pedal( self ):
+        return self._client.get( 'exp_pedal' ).decode( 'utf-8' )
+
+    @exp_pedal.setter
+    def exp_pedal( self, payload ):
+        self._client.set( 'exp_pedal', ujson.dumps( payload ) )
+
+
+
 
 
 

@@ -11,18 +11,19 @@ from managers.config_manager import config
 
 class GiantBombManager( object ):
 
-    def __init__( self, url, api_key ):
+    def __init__( self, url: str, api_key: str ):
         super( GiantBombManager, self ).__init__()
 
-        self._url     = config.giantbomb.url
+        self._url     = url
+        self._key     = api_key
         self._headers = { 'User-Agent': config.giantbomb.user_agent }
         return
 
 
-    def fetch_info( self, game_id ):
+    def fetch_info( self, game_id: str ):
         url    = f"{self._url}{game_id}/"
         params = {
-            "api_key"   : config.giantbomb.api_key,
+            "api_key"   : self._key,
             "field_list": "name,developers,original_release_date,image,platforms,publishers,deck,id,genres",
             "format"    : "json",
         }

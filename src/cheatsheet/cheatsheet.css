@@ -7,27 +7,44 @@
     margin  :  15px;
 }
 
-.cheatsheet-table-header {
-    font-size       : 18px !important;
-    font-family     : "Noto Sans Mono" !important;
-    background-color: black !important;
-    padding         : 8px !important;
+.cheatsheet-icon {
+    border     : solid 2px white;
+    position   : absolute !important;
+    top        : 10px;
+    margin-left: 10px;
+    width      : 180px !important;
+    height     : 180px !important;
+    z-index    : -1;
+    filter     : opacity(80%) brightness(60%)
+}
+
+.cheatsheet-markdown {
+    font-family: "Noto Sans Mono";
+    font-size  : 19px;
+}
+
+
+.cheatsheet-markdown code {
+    background-color: #f006;
+}
+
+
+.cheatsheet-markdown table {
+    width           : 100%;
+    background-color: #0003;
+}
+
+.cheatsheet-markdown th {
+    background-color: #111;
+    padding         : 8px;
     border-right    : solid 1px #666 ;
-    text-align      : center !important;
-}
-
-.cheatsheet-table-cell {
-    padding      : 10px !important;
-    font-size    : 18px !important;
-    font-family  : "Noto Sans Mono" !important;
-    border-right : solid 1px #666 ;
 }
 
 
-.cheatsheet-table-row-odd {
+.cheatsheet-markdown tr:nth-child(even) {
+    background-color: #555b;
+}
+
+.cheatsheet-markdown tr:nth-child(odd) {
     background-color: transparent;
-}
-
-.cheatsheet-table-row-even {
-    background-color: #555;
 }

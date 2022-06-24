@@ -35,7 +35,7 @@ export const todo_slice = createSlice({
 
             state.completion.total      = total_completion;
             state.completion.count      = completion_count;
-            state.completion.percentage = ( completion_count * 100 / total_completion ).toFixed(1) + ' %';
+            state.completion.percentage = ( completion_count * 100 / total_completion ).toFixed(1) + '%';
             state.habits                = headings;
         },
 

@@ -10,6 +10,15 @@ from managers.todos_manager import todos
 
 todo = Blueprint( "todo" )
 
+@todo.websocket( "/checklist" )
+async def get_checklist( request, ws ):
+    while True:
+        message = ujson.dumps( todos.checklist() )
+        await ws.send( message )
+        received = await ws.recv()
+        continue
+    return
+
 
 @todo.websocket( "/today" )
 async def get_today_tasks( request, ws ):

@@ -22,22 +22,21 @@ body {
 .border {
     position     : absolute;
     top          : 5px;
-    left         : 5px;
+    left         : 50px;
     right        : 5px;
-    bottom       : 5px;
+    bottom       : 15px;
     padding      : 0px !important;
     margin       : 0px !important;
     border       :  none;
-    border-radius: 15px;
-    /*border  : solid 10px #0f74c6;*/
+    /*border     : solid 10px #0f74c6;*/
 }
 
 .border-pulsate {
     position : absolute;
     top      : 5px;
-    left     : 5px;
+    left     : 50px;
     right    : 5px;
-    bottom   : 5px;
+    bottom   : 15px;
     padding  : 0px !important;
     margin   : 0px !important;
     border   :  none;
@@ -47,11 +46,13 @@ body {
 
 @keyframes pulsate {
     0%    { border: none; }
-    100%  { border: solid 15px #0f74c6; }
+    100%  { border: solid 10px #0f74c6; }
 }
 
 .swipeableView {
-    margin-left: 50px;
+    margin-left: 80px;
+    overflow: hidden !important;
+
 }
 
 
@@ -76,7 +77,8 @@ body {
 .tabs {
     /*border-right: solid 1px #666;*/
     position  : absolute !important;
-    width     : 60px !important;
+    left      : 30px !important;
+    width     : 80px !important;
     height    : 440px;
     margin-top: -40px;
     z-index   : 2;

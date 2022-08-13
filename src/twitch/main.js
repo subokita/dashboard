@@ -7,7 +7,7 @@ import config       from "../config.json"
 import OBSWebSocket from 'obs-websocket-js';
 import React        from 'react';
 import { Grid }     from '@mui/material';
-import { set_heartbeat_state, set_at2020v_mic, set_boya_lavalier_mic,
+import { set_heartbeat_state, set_at2020v_mic,
          set_elgato_hd_60s, set_blackhole,
          set_current_scene, disconnect } from '../store/slices/twitch_slice.js'
 import { out_of_range }     from '../common/utils.js'
@@ -98,7 +98,7 @@ class TwitchPanel extends React.Component {
     }
 
     render() {
-        const { streaming, at2020v_mic, boya_lavalier_mic, elgato_hd_60s, blackhole,
+        const { streaming, at2020v_mic, elgato_hd_60s, blackhole,
                 total_stream_time, cpu_usage, fps, num_dropped_frames,
                 num_total_frames, render_missed_frames, render_total_frames,
                 strain, current_scene, selected_tab, index } = this.props;
@@ -155,7 +155,6 @@ const mapStateToProps = state => {
         average_frame_time   : state.twitch.average_frame_time,
         blackhole            : state.twitch.blackhole,
         at2020v_mic          : state.twitch.at2020v_mic,
-        boya_lavalier_mic    : state.twitch.boya_lavalier_mic,
         bytes_per_sec        : state.twitch.bytes_per_sec,
         cpu_usage            : state.twitch.cpu_usage,
         current_scene        : state.twitch.current_scene,

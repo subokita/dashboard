@@ -1,1 +1,1 @@
-conda activate dashboard
+source venv/bin/activate

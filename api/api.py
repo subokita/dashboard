@@ -18,6 +18,7 @@ from modules.todo           import todo
 from modules.dictionary     import dictionary
 from modules.cheatsheet     import cheatsheet
 from modules.midi_commander import midi_commander
+from modules.obsws          import obsws
 
 app = Sanic( "Dashboard" )
 blueprint_groups = {
@@ -29,6 +30,7 @@ blueprint_groups = {
     'dictionary'    : Blueprint.group( dictionary,                                   url_prefix = '/dictionary' ),
     'cheatsheet'    : Blueprint.group( cheatsheet,                                   url_prefix = '/cheatsheet' ),
     'midi_commander': Blueprint.group( midi_commander,                               url_prefix = '/midi_commander' ),
+    'obsws'         : Blueprint.group( obsws,                                        url_prefix = '/obsws' ),
 }
 
 for group in blueprint_groups.values():

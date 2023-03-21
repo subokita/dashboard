@@ -11,7 +11,7 @@ import RefreshIcon                                  from '@mui/icons-material/Re
 import {Fab, Tabs, Tab, Box, Typography, Snackbar } from '@mui/material';
 import { set_tab, set_brightness, change_tab,
          update_current_time, close_snackbar,
-         notify, set_vpn_status }                   from './store/slices/dashboard_slice.js'
+         notify, set_vpn_status, set_refresh_time } from './store/slices/dashboard_slice.js'
 
 class Dashboard extends React.Component {
     constructor( props ){
@@ -26,6 +26,7 @@ class Dashboard extends React.Component {
         this.ws_helper.onMessage = (event) => {
             const info = JSON.parse( event.data )
             this.props.dispatch( set_tab( Number( info.selected_tab ) ) );
+            this.props.dispatch( set_refresh_time( info.refresh_time ) );
 
             if ( info.brightness !== this.props.brightness ) {
                 this.props.dispatch( set_brightness( Number( info.brightness ).toFixed() ) );
@@ -47,11 +48,17 @@ class Dashboard extends React.Component {
         this.timer.on( 'tick', (ms) => {
             this.props.dispatch( update_current_time() );
 
-            const local_time = moment( this.props.current_time ).utcOffset( config.time.local.utc * 60 );
+            const local_time   = moment( this.props.current_time ).utcOffset( config.time.local.utc * 60 );
+            const refresh_time = moment( this.props.refresh_time ).utcOffset( config.time.local.utc * 60 );
+
             Object.entries( config.alarms ).forEach( ([alarm_name, alarm], index) => {
                 if ( local_time.isSame( moment( alarm, 'HH:mm' ), 'second' ))
                     this.props.dispatch( notify( ['⏰', alarm_name] ) )
             });
+
+            if ( local_time.isSame( refresh_time, 'second' )) {
+                window.location.reload();
+            }
         });
 
         this.timer.start({ interval: 1000, stopwatch: false })
@@ -86,6 +93,7 @@ class Dashboard extends React.Component {
         //     return <Box id="dashboard" className="dashboard" sx={{ flexGrow: 1, display: 'flex' }}/> ;
         // }
 
+
         return (
             <Box id="dashboard" className="dashboard" sx={{ flexGrow: 1, display: 'flex' }}>
                 <Box className={snackbar_messages.length ? "border-pulsate" : "border"}/>
@@ -107,7 +115,7 @@ class Dashboard extends React.Component {
                 </SwipeableViews>
 
                 <Typography className="mini-clock">
-                    {vpn_status ? <img className="vpn" src="icons8-cloud_done.png"/> : <img className="vpn" src="icons8-cloud_cross.png"/>}
+                    {vpn_status ? <img className="vpn" alt="vpn enganged" src="icons8-cloud_done.png"/> : <img className="vpn" alt="no vpn" src="icons8-cloud_cross.png"/>}
                     {local_utc_offset.format( ' ddd DD/MM HH:mm' )}
                 </Typography>
                 <Fab className="refresh-button">
@@ -135,6 +143,7 @@ const mapStateToProps = state => {
         current_time     : state.dashboard.current_time,
         vpn_status       : state.dashboard.vpn_status,
         snackbar_messages: state.dashboard.snackbar_messages,
+        refresh_time     : state.dashboard.refresh_time,
     }
 }
 

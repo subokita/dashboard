@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import os
-from sanic          import Sanic, Blueprint
-from sanic_cors     import CORS
+from sanic                  import Sanic, Blueprint
+from sanic_cors             import CORS
 
 from modules.language       import language
 from modules.space          import space
@@ -19,6 +19,8 @@ from modules.dictionary     import dictionary
 from modules.cheatsheet     import cheatsheet
 from modules.midi_commander import midi_commander
 from modules.obsws          import obsws
+from modules.refresh_time   import refresh_time
+from modules.chrono         import chrono
 
 app = Sanic( "Dashboard" )
 blueprint_groups = {
@@ -31,6 +33,8 @@ blueprint_groups = {
     'cheatsheet'    : Blueprint.group( cheatsheet,                                   url_prefix = '/cheatsheet' ),
     'midi_commander': Blueprint.group( midi_commander,                               url_prefix = '/midi_commander' ),
     'obsws'         : Blueprint.group( obsws,                                        url_prefix = '/obsws' ),
+    'refresh_time'  : Blueprint.group( refresh_time,                                 url_prefix = '/refresh_time' ),
+    'chrono'        : Blueprint.group( chrono,                                       url_prefix = '/chrono' ),
 }
 
 for group in blueprint_groups.values():

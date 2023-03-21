@@ -65,10 +65,12 @@ export const twitch_slice = createSlice({
             state.fps                   = parseFloat( action.payload.activeFps ).toFixed(2);
             state.memory_usage          = action.payload.memoryUsage.toFixed(2) ;
             state.average_frame_time    = parseFloat( action.payload.averageFrameRenderTime ).toFixed(2);
+            state.render_skipped_frames = action.payload.renderSkippedFrames;
+            state.render_total_frames   = action.payload.renderTotalFrames;
+            // state.strain                = ( parseFloat(action.payload.renderSkippedFrames) * 100.0 / parseFloat(action.payload.renderTotalFrames) ).toFixed(2);
+            // state.strain                = parseFloat(action.payload.renderTotalFrames).toFixed(2);
 
             // availableDiskSpace  Number  Available disk space on the device being used for recording storage
-            // renderSkippedFrames Number  Number of frames skipped by OBS in the render thread
-            // renderTotalFrames   Number  Total number of frames outputted by the render thread
             // outputSkippedFrames Number  Number of frames skipped by OBS in the output thread
             // outputTotalFrames   Number  Total number of frames outputted by the output thread
             // webSocketSessionIncomingMessages    Number  Total number of messages received by obs-websocket from the client
@@ -78,7 +80,7 @@ export const twitch_slice = createSlice({
 
         set_stream_status: ( state, action ) => {
             state.streaming             = action.payload.outputActive;
-            state.total_stream_time     = action.payload.outputDuration;
+            state.total_stream_time     = action.payload.outputTimecode;
             state.output_skipped_frames = action.payload.outputSkippedFrames;
             state.output_total_frames   = action.payload.outputTotalFrames;
             state.strain                = action.payload.outputCongestion;

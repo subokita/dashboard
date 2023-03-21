@@ -5,6 +5,8 @@ import { Avatar }         from '@mui/material';
 
 import DeviceStatusPanel  from './device-status/main.js'
 import TimePanel          from './time/main.js'
+import ChronoPanel        from './chrono/main.js'
+import NotePanel          from './note/main.js'
 import MusicPanel         from './music/main.js'
 import HabitPanel         from './habit/main.js'
 import TwitchPanel        from './twitch/main.js'
@@ -27,13 +29,15 @@ const uid_panel_mappings = {
     dictionary    : <DictionaryPanel    key={index} index={index++}/>,
     midi_commander: <MidiCommanderPanel key={index} index={index++}/>,
     cheat         : <CheatsheetPanel    key={index} index={index++}/>,
+    chrono        : <ChronoPanel        key={index} index={index++}/>,
+    note          : <NotePanel          key={index} index={index++}/>,
 }
 
 let tab_mappings = [];
 
 tabs.items.forEach( (item) => {
     tab_mappings.push({
-        icon : <Avatar className="tabs-avatar" src={item.icon.path.replace( '~/dashboard/public/', '' )}/>,
+        icon : <Avatar className="tabs-avatar" src={item.icon.path.replace( '/Volumes/NVME/dashboard/public/', '' )}/>,
         panel: uid_panel_mappings[item.uid]
     });
 });

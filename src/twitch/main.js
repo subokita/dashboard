@@ -90,7 +90,9 @@ class TwitchPanel extends React.Component {
 
 
     async disconnect() {
+        const { dispatch } = this.props;
         this.timer.stop();
+        dispatch( set_disconnect_status() );
         await this.obs.disconnect();
     }
 
@@ -131,7 +133,7 @@ class TwitchPanel extends React.Component {
 
     render() {
         const { streaming, at2020v_mic, elgato_hd_60s, blackhole, at2020v_monitor, at2020v_vst,
-                total_stream_time, cpu_usage, fps, num_dropped_frames,
+                total_stream_time, cpu_usage, fps, num_dropped_frames, memory_usage,
                 num_total_frames, render_skipped_frames, render_total_frames,
                 strain, current_scene, selected_tab, index } = this.props;
 
@@ -161,12 +163,14 @@ class TwitchPanel extends React.Component {
                         </Grid>
                         <Grid item xs={6}>
                             <Grid className="round-container" container spacing={0.2}>
-                                <Grid item xs={7}>Elapsed</Grid>        <Grid item xs={5}>{moment.utc(total_stream_time*1000).format('HH:mm:ss')}</Grid>
+                                {/*<Grid item xs={7}>Elapsed</Grid>        <Grid item xs={5}>{moment.utc(total_stream_time*1000).format('HH:mm:ss')}</Grid>*/}
+                                <Grid item xs={7}>Elapsed</Grid>        <Grid item xs={5}>{total_stream_time}</Grid>
                                 <Grid item xs={7}>CPU</Grid>            <Grid item xs={5}>{cpu_usage} %</Grid>
+                                <Grid item xs={7}>RAM</Grid>            <Grid item xs={5}>{memory_usage} MB</Grid>
                                 <Grid item xs={7}>FPS</Grid>            <Grid item xs={5}>{fps}</Grid>
                                 <Grid item xs={7}>Dropped frames</Grid> <Grid item xs={5}>{(num_dropped_frames * 100.0 / num_total_frames).toFixed(2)}</Grid>
                                 <Grid item xs={7}>Skipped frames</Grid> <Grid item xs={5}>{(render_skipped_frames * 100.0 / render_total_frames).toFixed(2)}</Grid>
-                                <Grid item xs={7}>Strain</Grid>         <Grid item xs={5}>{strain}</Grid>
+                                {/*<Grid item xs={7}>Strain</Grid>         <Grid item xs={5}>{strain}</Grid>*/}
 
                             </Grid>
                         </Grid>

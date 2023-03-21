@@ -4,6 +4,7 @@
 import os
 import redis
 import ujson
+import datetime
 from dotmap                  import DotMap
 from managers.config_manager import config
 
@@ -130,7 +131,7 @@ class RedisManager( object ):
 
     @property
     def game_info(self):
-        return ujson.loads( self._client.get( 'game_info').decode( 'utf-8' ) )
+        return ujson.loads( self._client.get( 'game_info' ).decode( 'utf-8' ) )
 
 
     @game_info.setter
@@ -150,6 +151,27 @@ class RedisManager( object ):
         return
 
 
+    @property
+    def refresh_time( self ):
+        return self._client.get( 'refresh_time' ).decode( 'utf-8' )
+
+
+    @refresh_time.setter
+    def refresh_time( self, value: datetime ):
+        self._client.set( 'refresh_time', value )
+
+
+    @property
+    def chrono( self ):
+        return ujson.loads( self._client.get( 'chrono' ).decode( 'utf-8' ) )
+
+
+    @chrono.setter
+    def chrono( self, payload ):
+        self._client.set( 'chrono', ujson.dumps({
+            'end_time': payload.end_time,
+            'status'  : payload.status
+        }))
 
 
     @property

@@ -2,5 +2,5 @@ tricks:
 - watchdog.tricks.ShellCommandTrick:
     patterns        : ["*.py", "dev-tricks.yaml", "*.ini", "*.yml"]
     shell_command   : "clear; \
-                      printf '\e]50;ClearScrollback\a'; python3 ./managers/todos_manager.py"
+                      printf '\e]50;ClearScrollback\a'; python3 ./modules/test.py"
     wait_for_process: true

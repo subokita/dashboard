@@ -1,0 +1,24 @@
+
+.note-box {
+    overflow: hidden;
+    margin  :  15px;
+    align-items: center !important;
+}
+
+
+.note-markdown {
+    font-family: "Noto Sans Mono";
+    font-size  : 20px;
+    line-height: 25px;
+}
+
+.note-column {
+    text-align    : left;
+/*
+    vertical-align: middle !important;
+
+    font-size     : 100px;
+    font-weight   : 800;
+    letter-spacing: 3px;
+    color         : #FFF !important;*/
+}

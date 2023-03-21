@@ -30,7 +30,7 @@ class CheatsheetPanel extends React.Component {
 
         this.icon_mapping = {};
         cheatsheets.items.forEach( (item) => {
-            this.icon_mapping[item.uid] = <Avatar className="cheatsheet-icon" src={item.icon.path.replace( '~/dashboard/public/', '' )}/>;
+            this.icon_mapping[item.uid] = <Avatar className="cheatsheet-icon" src={item.icon.path.replace( '/Volumes/NVME/dashboard/public/', '' )}/>;
         });
 
         this.markdown_mapping = {

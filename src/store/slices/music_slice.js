@@ -26,6 +26,7 @@ export const music_slice = createSlice({
             state.title      = action.payload.title;
             state.thumb      = action.payload.thumb;
             state.background = action.payload.thumb;
+
         },
 
 

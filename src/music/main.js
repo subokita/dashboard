@@ -73,7 +73,7 @@ class MusicPanel extends React.Component {
             case 'media.scrobble':
                 // background.style.backgroundImage = `linear-gradient(-45deg, ${album_color[2]}, ${album_color[1]}, ${album_color[0]}, ${album_color[0]} )`;
                 // background.style.backgroundSize  = '200% 200%';
-                background_element.style.backgroundImage = `url("${config.plex.server}${background}")`;
+                background_element.style.backgroundImage = `url("${config.plex.server}${background}?X-Plex-Token=${config.plex.token}")`;
                 break;
             default:
                 background_element.style.background = '';
@@ -91,12 +91,12 @@ class MusicPanel extends React.Component {
                 return <img className = "music-album-art-image music-album-art-glowing"
                             id        = "album-art"
                             alt       = "album art"
-                            src       = {`${config.plex.server}${thumb}`}/>;
+                            src       = {`${config.plex.server}${thumb}?X-Plex-Token=${config.plex.token}`}/>;
             default:
                 return <img className = "music-album-art-image music-album-art-dimming"
                             id        = "album-art"
                             alt       = "album art"
-                            src       = {`${config.plex.server}${thumb}`}/>;
+                            src       = {`${config.plex.server}${thumb}?X-Plex-Token=${config.plex.token}`}/>;
         }
     }
 

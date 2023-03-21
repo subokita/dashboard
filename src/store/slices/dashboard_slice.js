@@ -12,9 +12,15 @@ export const dashboard_slice = createSlice({
         current_time     : moment().toISOString(),
         snackbar_messages: [],
         vpn_status       : false,
+        refresh_time     : moment.unix( 0 ).toISOString(),
     },
 
     reducers    : {
+
+        set_refresh_time: ( state, action ) => {
+            state.refresh_time = action.payload
+        },
+
         change_tab: (state, action) => {
             axios.put( `${config.dashboard.rest.put}/${action.payload}` );
         },
@@ -53,6 +59,12 @@ export const dashboard_slice = createSlice({
     }
 })
 
-export const { change_tab, set_tab, update_current_time,
-               set_brightness, close_snackbar, notify, set_vpn_status } = dashboard_slice.actions
+export const { change_tab,
+               set_tab,
+               update_current_time,
+               set_brightness,
+               close_snackbar,
+               notify,
+               set_refresh_time,
+               set_vpn_status } = dashboard_slice.actions
 export default dashboard_slice.reducer

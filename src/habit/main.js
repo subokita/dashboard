@@ -34,7 +34,7 @@ class HabitPanel extends React.Component {
 
     renderHabit( habits, key ) {
         var result = [
-            <Grid className="habit-area" key={0}>
+            <Grid className="habit-area" key={-1}>
                 {key}
             </Grid>
         ];
@@ -61,7 +61,7 @@ class HabitPanel extends React.Component {
                     var entry = area[index];
 
                     result.push(
-                        <Grid container key={entry.id} className="habit-entry-container">
+                        <Grid container key={index} className="habit-entry-container">
                             <Grid item xs={12} className={selector.class_name[entry.status]}>
                                 { selector.tick[entry.status] }
                                 { entry.title }
@@ -79,8 +79,7 @@ class HabitPanel extends React.Component {
                             }
                             </Grid>
                         </Grid>
-
-                    )
+                    );
                 }
 
             }

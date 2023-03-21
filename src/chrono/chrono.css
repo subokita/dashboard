@@ -1,0 +1,26 @@
+
+.chrono-main {
+    align-items: center !important;
+    align-content: center !important;
+}
+
+.chrono-min {
+    vertical-align: middle !important;
+    text-align    : center;
+    font-size     : 140px;
+    font-weight   : 800;
+    letter-spacing: 3px;
+    color         : #FFF !important;
+}
+
+
+
+.chrono-sec {
+    vertical-align: middle !important;
+    margin-top    : -60px !important;
+    text-align    : center;
+    font-size     : 60px;
+    font-weight   : 800;
+    letter-spacing: 3px;
+    color         : #666 !important;
+}

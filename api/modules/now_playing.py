@@ -5,17 +5,16 @@ import os
 import io
 import ujson
 import asyncio
-from urllib.parse            import unquote
-from sanic                   import Blueprint
-from sanic.response          import HTTPResponse, empty
-from sanic.request           import Request
-from subprocess              import call
-from dotmap                  import DotMap
-from colorthief              import ColorThief
-from managers.redis_manager  import redis_manager
-from managers.config_manager import config
-from managers.plex_manager   import plex
-
+from urllib.parse             import unquote
+from sanic                    import Blueprint
+from sanic.response           import HTTPResponse, empty
+from sanic.request            import Request
+from subprocess               import call
+from dotmap                   import DotMap
+from colorthief               import ColorThief
+from managers.redis_manager   import redis_manager
+from managers.config_manager  import config
+from managers.plex_manager    import plex
 
 now_playing = Blueprint( "now playing", url_prefix = "/" )
 
@@ -35,7 +34,8 @@ async def info( request: Request, ws ):
 
 async def run_yeelight_color_change( color_tuple ):
     rgb = '{:02X}{:02X}{:02X}'.format(*color_tuple)
-    call( ['./observe.sh', rgb], cwd = config.yeelight_plex.cwd )
+    # call( ['../yeelight-plex/observe.sh', rgb], cwd = config.yeelight_plex.cwd )
+    # call( ['/Volumes/NVME/yeelight-plex/observe.sh', rgb]  )
     return
 
 
@@ -52,6 +52,7 @@ async def handle_plex( request: Request ) -> HTTPResponse:
     print( f"{payload.event}" )
 
     if payload.event in ['media.play', 'media.resume', 'media.scrobble' ]:
+
         if request.files:
             album_art   = request.files['thumb'][0].body
             bytes_io    = io.BytesIO( album_art )
@@ -65,7 +66,10 @@ async def handle_plex( request: Request ) -> HTTPResponse:
             pass
 
         payload.pprint()
+
+
         pass
+
 
     redis_manager.now_playing = payload
 

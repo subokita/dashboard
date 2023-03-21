@@ -8,7 +8,7 @@
             "match": "0 time clock",
             "arg": 0,
             "icon": {
-                "path": "~/dashboard/public/icons8-clock.png"
+                "path": "/Volumes/NVME/dashboard/public/icons8-clock.png"
             }
         },
         {
@@ -18,7 +18,7 @@
             "match": "1 Device Status",
             "arg": 1,
             "icon": {
-                "path": "~/dashboard/public/icons8-multiple_devices.png"
+                "path": "/Volumes/NVME/dashboard/public/icons8-multiple_devices.png"
             }
         },
         {
@@ -28,7 +28,7 @@
             "match": "2 Music",
             "arg": 2,
             "icon": {
-                "path": "~/dashboard/public/icons8-music.png"
+                "path": "/Volumes/NVME/dashboard/public/icons8-music.png"
             }
         },
         {
@@ -38,7 +38,7 @@
             "match": "3 Habits",
             "arg": 3,
             "icon": {
-                "path": "~/dashboard/public/icons8-today.png"
+                "path": "/Volumes/NVME/dashboard/public/icons8-today.png"
             }
         },
         {
@@ -48,7 +48,7 @@
             "match": "4 Todo",
             "arg": 4,
             "icon": {
-                "path": "~/dashboard/public/icons8-todo_list.png"
+                "path": "/Volumes/NVME/dashboard/public/icons8-todo_list.png"
             }
         },
         {
@@ -58,7 +58,7 @@
             "match": "5 Game",
             "arg": 5,
             "icon": {
-                "path": "~/dashboard/public/icons8-apple_arcade.png"
+                "path": "/Volumes/NVME/dashboard/public/icons8-apple_arcade.png"
             }
         },
         {
@@ -68,7 +68,7 @@
             "match": "6 Twitch",
             "arg": 6,
             "icon": {
-                "path": "~/dashboard/public/icons8-twitch.png"
+                "path": "/Volumes/NVME/dashboard/public/icons8-twitch.png"
             }
         },
         {
@@ -78,7 +78,7 @@
             "match": "7 Dictionary",
             "arg": 7,
             "icon": {
-                "path": "~/dashboard/public/icons8-dictionary.png"
+                "path": "/Volumes/NVME/dashboard/public/icons8-dictionary.png"
             }
         },
         {
@@ -88,7 +88,7 @@
             "match": "8 Midi Meloaudio",
             "arg": 8,
             "icon": {
-                "path": "~/dashboard/public/icons8-brake_pedal.png"
+                "path": "/Volumes/NVME/dashboard/public/icons8-brake_pedal.png"
             }
         },
         {
@@ -98,7 +98,27 @@
             "match": "9 Cheatsheet",
             "arg": 9,
             "icon": {
-                "path": "~/dashboard/public/icons8-magazine.png"
+                "path": "/Volumes/NVME/dashboard/public/icons8-magazine.png"
+            }
+        },
+        {
+            "uid": "chrono",
+            "title": "Chrono",
+            "subtitle": "Shows chrono panel",
+            "match": "10 Chrono",
+            "arg": 10,
+            "icon": {
+                "path": "/Volumes/NVME/dashboard/public/icons8-clock.png"
+            }
+        },
+        {
+            "uid": "note",
+            "title": "Note",
+            "subtitle": "Shows note panel",
+            "match": "11 Note",
+            "arg": 11,
+            "icon": {
+                "path": "/Volumes/NVME/dashboard/public/icons8-note.png"
             }
         }
     ]

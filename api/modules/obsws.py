@@ -51,3 +51,9 @@ async def toggle_at2020v_monitor( request: Request )  -> HTTPResponse:
 async def toggle_at2020v_vst( request: Request )  -> HTTPResponse:
     obsws_manager.toggle_at2020v_vst()
     return empty()
+
+
+@obsws.put( "/toggle/elgato_monitor" )
+async def toggle_elgato_monitor( request: Request )  -> HTTPResponse:
+    obsws_manager.toggle_elgato_monitor()
+    return empty()
